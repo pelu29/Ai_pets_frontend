@@ -1,0 +1,121 @@
+<div class="layout-container">
+  
+  <aside class="sidebar">
+    <h2 class="nav-title">Navigation</h2>
+    <ul class="nav-list">
+      <li *ngFor="let opcion of opcionesNavegacion" 
+          [class.active]="opcion.activo" 
+          (click)="seleccionarOpcion(opcion)">
+          
+        <i class="fas icon" [ngClass]="opcion.icono"></i>
+        {{ opcion.nombre }}
+      </li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    
+    <header class="order-header">
+      <div class="title-group">
+        <h1>Order Details</h1>
+        <span class="meta">• {{ orderDetails.date }} • {{ orderDetails.itemsCount }} Products</span>
+      </div>
+      <a href="#" class="back-link">Back to List</a>
+    </header>
+
+    <div class="info-grid">
+      
+      <div class="address-card">
+        <div class="address-col">
+          <h3 class="section-label">BILLING ADDRESS</h3>
+          <p class="name">{{ customer.name }}</p>
+          <p class="addr">{{ customer.address }}</p>
+          <div class="contact-info">
+            <small>EMAIL</small>
+            <p>{{ customer.email }}</p>
+            <small>PHONE</small>
+            <p>{{ customer.phone }}</p>
+          </div>
+        </div>
+        <div class="address-col">
+          <h3 class="section-label">SHIPPING ADDRESS</h3>
+          <p class="name">{{ customer.name }}</p>
+          <p class="addr">{{ customer.address }}</p>
+          <div class="contact-info">
+            <small>EMAIL</small>
+            <p>{{ customer.email }}</p>
+            <small>PHONE</small>
+            <p>{{ customer.phone }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-header">
+          <div>
+            <span class="label">ORDER ID:</span>
+            <span class="value">{{ orderDetails.id }}</span>
+          </div>
+          <div class="payment-method">
+            <span class="label">PAYMENT METHOD:</span>
+            <span class="value">{{ orderDetails.paymentMethod }}</span>
+          </div>
+        </div>
+        <hr>
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span class="amount">${{ orderDetails.subtotal | number:'1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Discount</span>
+          <span class="amount">{{ orderDetails.discount }}%</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span class="amount">{{ orderDetails.shipping }}</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span class="amount green">${{ orderDetails.total | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stepper-container">
+      <div class="stepper-track">
+        <div class="track-line"></div> 
+        <div class="track-progress" style="width: 35%;"></div> 
+
+        <div class="step" *ngFor="let step of steps" [class.active]="step.number <= currentStep">
+          <div class="circle">
+            <span *ngIf="step.number > currentStep">{{ step.number.toString().padStart(2, '0') }}</span>
+            <span *ngIf="step.number <= currentStep"><i class="fas fa-check"></i></span>
+          </div>
+          <span class="label">{{ step.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="products-table">
+      <div class="table-header">
+        <div class="col-prod">PRODUCT</div>
+        <div class="col-price">PRICE</div>
+        <div class="col-qty">QUANTITY</div>
+        <div class="col-sub">SUBTOTAL</div>
+      </div>
+      
+      <div class="table-row" *ngFor="let p of products">
+        <div class="col-prod flex-center">
+          <div class="img-placeholder">
+            <img [src]="p.image" alt="{{p.name}}">
+          </div> 
+          <span>{{ p.name }}</span>
+        </div>
+        <div class="col-price">${{ p.price | number:'1.2-2' }}</div>
+        <div class="col-qty">x{{ p.quantity }}</div>
+        <div class="col-sub font-bold">${{ calculateSubtotal(p.price, p.quantity) | number:'1.2-2' }}</div>
+      </div>
+    </div>
+
+  </main>
+</div>

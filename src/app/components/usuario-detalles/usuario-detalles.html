@@ -1,0 +1,75 @@
+<div class="dashboard-container">
+  <aside class="navigation-panel">
+    <div class="navigation-header">
+      <h2 class="title">Navigation</h2>
+    </div>
+    <nav>
+      <ul>
+        <li *ngFor="let opcion of opcionesNavegacion" 
+            [class.active]="opcion.activo" 
+            (click)="seleccionarOpcion(opcion)">
+          
+          <i class="icon fa" [ngClass]="opcion.icono"></i> 
+          {{ opcion.nombre }}
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-info-layout">
+      
+      <section class="card profile-card">
+        <div class="profile-picture-container">
+          <img [src]="usuario.fotoUrl" alt="Foto de {{ usuario.nombre }}" class="profile-picture">
+        </div>
+        <div class="profile-details">
+          <p class="name">{{ usuario.nombre }}</p>
+          <p class="role">{{ usuario.rol }}</p>
+          <a href="javascript:void(0)" class="edit-link">Editar Perfil</a>
+        </div>
+      </section>
+
+      <section class="card shipping-card">
+        <h3 class="shipping-header">DIRECCION DE ENVIO</h3>
+        <p class="name-alias">{{ usuario.nombre }} ({{ usuario.alias }})</p>
+        <address>
+          {{ usuario.direccionEnvio.calle }}, {{ usuario.direccionEnvio.pais }}<br>
+          {{ usuario.email }}<br>
+          {{ usuario.telefono }}
+        </address>
+        <a href="javascript:void(0)" class="edit-link">Editar dirección</a>
+      </section>
+    </div>
+
+    <section class="orders-history card">
+      <div class="orders-header">
+        <h3 class="title">Historial de pedidos</h3>
+        <a href="javascript:void(0)" class="view-all-link">Ver todo</a>
+      </div>
+
+      <div class="orders-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ORDER ID</th>
+              <th>FECHA</th>
+              <th>TOTAL</th>
+              <th>ESTADO</th>
+              <th></th> </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of historialPedidos">
+              <td class="order-id">{{ pedido.id }}</td>
+              <td>{{ pedido.fecha }}</td>
+              <td>{{ pedido.total }}</td>
+              <td>{{ pedido.estado }}</td>
+              <td class="text-right"><a href="javascript:void(0)" class="detail-link">Ver detalles</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
