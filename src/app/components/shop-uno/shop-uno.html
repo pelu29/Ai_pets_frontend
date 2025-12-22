@@ -1,0 +1,94 @@
+<div class="shop-container">
+  <aside class="sidebar">
+    <div class="filter-header">
+      <button class="filter-btn">Filtrar <i class="fas fa-sliders-h"></i></button>
+    </div>
+
+    <div class="filter-section">
+      <h3>Todas las categorías <i class="fas fa-chevron-up"></i></h3>
+      <ul>
+        <li *ngFor="let category of categories">
+          <label>
+            <input type="checkbox" [checked]="category.checked">
+            {{ category.name }} <span class="count">({{ category.count }})</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="filter-section">
+      <h3>Precio <i class="fas fa-chevron-up"></i></h3>
+      <div class="price-slider">
+        <div class="slider-track"></div>
+        <div class="slider-range" [style.left.%]="(minPrice/1500)*100" [style.right.%]="100-(maxPrice/1500)*100"></div>
+        <input type="range" min="0" max="1500" [(ngModel)]="minPrice" class="range-input min-range">
+        <input type="range" min="0" max="1500" [(ngModel)]="maxPrice" class="range-input max-range">
+      </div>
+      <div class="price-values">
+        Price: S/ {{ minPrice }} — S/ {{ maxPrice }}
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Etiqueta popular <i class="fas fa-chevron-up"></i></h3>
+      <div class="tags">
+        <button *ngFor="let tag of popularTags" class="tag" [class.selected]="tag.selected">{{ tag.name }}</button>
+      </div>
+    </div>
+
+    <div class="banner-section">
+      <img src="assets/banner-pub.jpg" alt="Publicidad" class="banner-img">
+      <button class="apply-btn">Aplicar <i class="fas fa-sliders-h"></i></button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="top-bar">
+      <div class="sort-by">
+        <label for="sort">Ordenar por:</label>
+        <select id="sort" [(ngModel)]="selectedSortOption">
+          <option *ngFor="let option of sortOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+      <div class="results-count">
+        <strong>52</strong> Results Found
+      </div>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card" *ngFor="let product of products">
+        <div class="image-container">
+          <img [src]="product.image" [alt]="product.name">
+          <span class="out-of-stock" *ngIf="product.isOutOfStock">Out of Stock</span>
+          <div class="hover-icons" *ngIf="product.hasAdditionalIcons">
+            <button><i class="far fa-heart"></i></button>
+            <button><i class="far fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="product-details">
+          <h4 class="product-title">{{ product.name }}</h4>
+          <div class="product-price">S/ {{ product.price.toFixed(2) }}</div>
+          <div class="product-rating">
+            <i class="fas fa-star" *ngFor="let star of getStars(product.rating)"></i>
+            <i class="far fa-star" *ngFor="let star of getStars(5 - product.rating)"></i>
+          </div>
+        </div>
+        <button class="add-to-cart-btn" [class.blue-btn]="product.hasAdditionalIcons">
+          <i class="fas" [ngClass]="product.hasAdditionalIcons ? 'fa-shopping-bag' : 'fa-shopping-basket'"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <button class="page-nav"><i class="fas fa-chevron-left"></i></button>
+      <button class="page-num active">1</button>
+      <button class="page-num">2</button>
+      <button class="page-num">3</button>
+      <button class="page-num">4</button>
+      <button class="page-num">5</button>
+      <span class="page-dots">...</span>
+      <button class="page-num">21</button>
+      <button class="page-nav"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </main>
+</div>
