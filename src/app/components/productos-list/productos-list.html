@@ -1,0 +1,144 @@
+<div class="layout">
+
+  <!-- BAR -->
+  <aside class="sidebar">
+
+    <!---->
+    <div class="filter-header">
+      <span>Filtrar</span>
+      <span class="icon">⚙</span>
+    </div>
+
+    <!-- CATEGORIAS -->
+    <div class="filter-block">
+      <div class="filter-title" (click)="toggleFilter('categories')">
+        <span>Categorías</span>
+        <span class="arrow" [class.open]="openFilters.categories">⬇️</span>
+      </div>
+
+      <div *ngIf="openFilters.categories">
+        <label class="radio" *ngFor="let cat of categories">
+          <input
+            type="radio"
+            name="category"
+            [value]="cat"
+            [(ngModel)]="selectedCategory"
+          >
+          {{ cat }}
+        </label>
+      </div>
+    </div>
+
+    <!-- PRECIO -->
+    <div class="filter-block">
+      <div class="filter-title" (click)="toggleFilter('price')">
+        <span>Precio</span>
+        <span class="arrow" [class.open]="openFilters.price">⬇️</span>
+      </div>
+
+      <div *ngIf="openFilters.price">
+        <input
+          class="price-slider"
+          type="range"
+          [min]="minPrice"
+          [max]="maxPrice"
+          [(ngModel)]="selectedPrice"
+          [style.--progress]="priceProgress"
+        >
+
+        <div class="price-values">
+          <span>S/{{ minPrice }}</span>
+          <span>S/{{ selectedPrice }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLASIFICACION -->
+    <div class="filter-block">
+      <div class="filter-title" (click)="toggleFilter('rating')">
+        <span>Clasificación</span>
+        <span class="arrow" [class.open]="openFilters.rating">⬇️</span>
+      </div>
+
+      <div *ngIf="openFilters.rating">
+        <label class="check" *ngFor="let r of [5,4,3]">
+          <input type="radio" name="rating" [value]="r" [(ngModel)]="selectedRating">
+          {{ '⭐'.repeat(r) }} o más
+        </label>
+      </div>
+    </div>
+
+    <!-- ETIQUETAS -->
+    <div class="filter-block">
+      <div class="filter-title" (click)="toggleFilter('tags')">
+        <span>Etiqueta popular</span>
+        <span class="arrow" [class.open]="openFilters.tags">⬇️</span>
+      </div>
+
+      <div *ngIf="openFilters.tags" class="tags">
+        <span
+          class="tag"
+          *ngFor="let tag of tags"
+          [class.active]="selectedTags.includes(tag)"
+          (click)="toggleTag(tag)"
+        >
+          {{ tag }}
+        </span>
+      </div>
+    </div>
+
+    <!-- BOTONES -->
+    <button class="apply-btn">
+      Aplicar filtros
+    </button>
+
+    <button class="clear-btn" (click)="clearFilters()">
+      Borrar filtros ✖
+    </button>
+
+  </aside>
+
+  <!-- PRODUCTOS -->
+  <section class="products">
+
+    <!-- ORDENAR -->
+    <div class="products-header">
+      <span class="results">
+        {{ filteredProducts.length }} resultados encontrados
+      </span>
+
+      <div class="sort-box">
+        <span>Ordenar por</span>
+        <select [(ngModel)]="sortBy">
+          <option value="latest">El último</option>
+          <option value="priceAsc">Precio: menor a mayor</option>
+          <option value="priceDesc">Precio: mayor a menor</option>
+          <option value="rating">Mejor calificados</option>
+        </select>
+      </div>
+    </div>
+
+    <!---->
+    <div class="products-grid">
+      <div class="card" *ngFor="let p of filteredProducts">
+
+        <span class="badge" *ngIf="p.stock === 0">
+          Fuera de Stock
+        </span>
+
+        <img [src]="p.image" alt="{{ p.name }}">
+
+        <h4>{{ p.name }}</h4>
+
+        <div class="rating">
+          {{ '⭐'.repeat(p.rating) }}
+        </div>
+
+        <p class="price">S/{{ p.price }}</p>
+
+      </div>
+    </div>
+
+  </section>
+
+</div>
