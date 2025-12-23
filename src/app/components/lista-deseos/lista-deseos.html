@@ -1,1 +1,198 @@
-<p>lista-deseos works!</p>
+<div class="container mx-auto px-4 py-6 max-w-5xl">
+  <!-- Header simplificado -->
+  <header class="mb-8 text-center">
+    <h1 class="text-3xl font-bold text-gray-900">
+      Mi lista de deseos
+    </h1>
+  </header>
+
+  <!-- Tabla optimizada -->
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Product
+            </th>
+            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Price
+            </th>
+            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Stock Status
+            </th>
+            <th class="py-4 px-6 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr *ngFor="let producto of productos" 
+              [id]="'product-' + producto.id"
+              class="hover:bg-gray-50 transition-colors duration-150">
+            
+            <!-- PRODUCTO -->
+            <td class="py-5 px-6">
+              <div class="flex items-center gap-4">
+                <div class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-gray-50">
+                  <img 
+                    [src]="producto.imagen" 
+                    [alt]="producto.nombre" 
+                    class="w-full h-full object-cover"
+                    (error)="manejarErrorImagen($event, producto.nombre)"
+                    onerror="this.src='/assets/default-product.jpg'">
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900 text-base">
+                    {{producto.nombre}}
+                  </h3>
+                </div>
+              </div>
+            </td>
+
+            <!-- PRECIO -->
+            <td class="py-5 px-6">
+              <div class="flex flex-col">
+                <span class="font-bold text-gray-900 text-lg">
+                  {{producto.precioTexto}}
+                </span>
+                <span class="text-xs mt-0.5" 
+                      [ngClass]="{
+                        'text-green-600': producto.precioEspecial && producto.stock,
+                        'text-amber-600': producto.precioEspecial && !producto.stock,
+                        'text-gray-500': !producto.precioEspecial
+                      }">
+                  {{producto.descuentoTexto}}
+                </span>
+              </div>
+            </td>
+
+            <!-- STOCK STATUS -->
+            <td class="py-5 px-6">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
+                    [ngClass]="producto.stock ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'">
+                <!-- Ícono de check para In Stock, X para Out of Stock -->
+                <svg *ngIf="producto.stock" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <svg *ngIf="!producto.stock" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                {{producto.stock ? 'In Stock' : 'Out of Stock'}}
+              </span>
+            </td>
+
+            <!-- ACCIONES -->
+            <td class="py-5 px-6">
+              <div class="flex items-center justify-center gap-2">
+                <!-- Botón Add to Cart / Added -->
+                <button 
+                  *ngIf="producto.stock"
+                  (click)="toggleCartButton(producto)"
+                  class="inline-flex items-center justify-center gap-2 w-36 py-2.5 rounded-lg font-medium text-sm transition-all duration-200"
+                  [ngClass]="cartState[producto.id] 
+                    ? 'bg-green-500 hover:bg-green-600 text-white shadow-sm' 
+                    : 'bg-blue-500 hover:bg-blue-600 text-white shadow-sm hover:shadow-md'">
+                  <i class="bi bi-cart3 text-base"></i>
+                  <span>{{cartState[producto.id] ? 'Added' : 'Add to Cart'}}</span>
+                </button>
+
+                <!-- Botón deshabilitado -->
+                <button 
+                  *ngIf="!producto.stock"
+                  disabled
+                  class="inline-flex items-center justify-center gap-2 w-36 py-2.5 rounded-lg font-medium text-sm bg-gray-100 text-gray-400 cursor-not-allowed">
+                  <i class="bi bi-x-circle text-base"></i>
+                  <span>Not Available</span>
+                </button>
+
+                <!-- Botón eliminar - AQUÍ VA TU IMAGEN DE BOTE DE BASURA -->
+                <button 
+                  (click)="eliminarProducto(producto.id)"
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white border border-gray-200 text-gray-500 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all duration-200"
+                  title="Remove from wishlist">
+                  <img src="/trash-icon.png" alt="Delete" class="w-5 h-5">
+                  <i class="bi bi-x-lg text-base"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Share section -->
+    <div class="border-t border-gray-200 px-6 py-4 bg-gray-50">
+      <div class="flex items-center gap-4">
+        <span class="text-sm font-medium text-gray-700 flex items-center gap-2">
+          <!-- Ícono de compartir tipo vector -->
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+          </svg>
+          Share:
+        </span>
+        <div class="flex gap-2">
+          <!-- Facebook - AQUÍ PON TU IMAGEN -->
+          <button 
+            (click)="compartirFacebook()"
+            class="w-9 h-9 rounded-full flex items-center justify-center text-white transition-transform duration-200 hover:scale-110 facebook-gradient shadow-sm"
+            title="Share on Facebook">
+            <img src="/facebook-icon.png" alt="Facebook" class="w-9 h-9">
+            <i class="bi bi-facebook text-sm"></i>
+          </button>
+
+          <!-- Pinterest - AQUÍ PON TU IMAGEN -->
+          <button 
+            (click)="compartirPinterest()"
+            class="w-9 h-9 rounded-full flex items-center justify-center text-white transition-transform duration-200 hover:scale-110 pinterest-gradient shadow-sm"
+            title="Share on Pinterest">
+            <img src="/pinterest-icon.png" alt="Pinterest" class="w-5 h-5">
+            <i class="bi bi-pinterest text-sm"></i>
+          </button>
+
+          <!-- Instagram - AQUÍ PON TU IMAGEN -->
+          <button 
+            (click)="compartirInstagram()"
+            class="w-9 h-9 rounded-full flex items-center justify-center text-white transition-transform duration-200 hover:scale-110 instagram-gradient shadow-sm"
+            title="Share on Instagram">
+            <img src="/instagram-icon.png" alt="Instagram" class="w-5 h-5">
+            <i class="bi bi-instagram text-sm"></i>
+          </button>
+
+          <!-- Twitter - AQUÍ PON TU IMAGEN -->
+          <button 
+            (click)="compartirTwitter()"
+            class="w-9 h-9 rounded-full flex items-center justify-center text-white transition-transform duration-200 hover:scale-110 twitter-gradient shadow-sm"
+            title="Share on Twitter">
+            <img src="/twitter-icon.png" alt="Twitter" class="w-4 h-4">
+            <i class="bi bi-twitter text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center mt-6 pt-6 border-t border-gray-200">
+    <p class="text-sm text-gray-500 mb-1">
+      Wishlist updated on {{fechaActual}}
+    </p>
+    <p class="text-xs text-gray-400">
+      Prices and availability are subject to change
+    </p>
+  </footer>
+
+  <!-- Toast notification -->
+  <div *ngIf="showToast" 
+       [ngClass]="obtenerClaseToast()"
+       class="fixed top-5 right-5 z-50 max-w-sm rounded-lg shadow-2xl p-4 slide-in text-white">
+    <div class="flex items-center justify-between gap-3">
+      <p class="font-medium text-sm flex-1">{{toastMessage}}</p>
+      <button 
+        (click)="cerrarToast()"
+        class="text-white hover:text-gray-200 transition-colors">
+        <i class="bi bi-x-lg text-lg"></i>
+      </button>
+    </div>
+  </div>
+</div>

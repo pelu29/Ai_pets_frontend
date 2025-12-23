@@ -1,14 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ListaDeseos } from './lista-deseos';
 
-describe('ListaDeseos', () => {
+describe('ListaDeseos', () => { 
   let component: ListaDeseos;
   let fixture: ComponentFixture<ListaDeseos>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListaDeseos]
+      imports: [ListaDeseos] 
     })
     .compileComponents();
 
