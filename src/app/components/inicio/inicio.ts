@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class Inicio {
 
+  abrirMapa(ruta:string): void {
+    const url = ruta;
+    window.open(url, '_blank');
+  }
 }

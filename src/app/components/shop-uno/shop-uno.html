@@ -1,8 +1,44 @@
-<div class="shop-container">
-  <aside class="sidebar">
-    <div class="filter-header">
-      <button class="filter-btn">Filtrar <i class="fas fa-sliders-h"></i></button>
-    </div>
+<div class="shop-container flex flex-col md:flex-row gap-6 px-4 md:px-8">
+  <aside class="sidebar hidden md:block md:w-80 flex-shrink-0">
+    <details id="mobileFilters" class="block md:hidden mb-4 rounded-md border overflow-hidden">
+      <summary class="bg-cyan-500 text-white px-4 py-3 rounded-md flex items-center justify-between cursor-pointer">
+        <span class="font-semibold">Filtrar</span>
+        <i class="fas fa-sliders-h"></i>
+      </summary>
+      <div class="p-4 bg-white">
+        <div class="mb-4">
+          <h4 class="font-semibold mb-2">Categorías</h4>
+          <ul class="space-y-2">
+            <li *ngFor="let category of categories">
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" [checked]="category.checked">
+                <span class="text-sm">{{ category.name }} <span class="text-gray-400">({{ category.count }})</span></span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mb-4">
+          <h4 class="font-semibold mb-2">Precio</h4>
+          <div class="flex items-center space-x-2">
+            <span class="text-sm">S/ {{ minPrice }}</span>
+            <input type="range" min="0" max="1500" [(ngModel)]="minPrice" class="flex-1">
+            <span class="text-sm">S/ {{ maxPrice }}</span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h4 class="font-semibold mb-2">Etiquetas</h4>
+          <div class="flex flex-wrap gap-2">
+            <button *ngFor="let tag of popularTags" class="tag px-2 py-1 rounded text-sm" [class.selected]="tag.selected">{{ tag.name }}</button>
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <button class="bg-cyan-500 text-white px-4 py-2 rounded-md">Aplicar</button>
+        </div>
+      </div>
+    </details>
 
     <div class="filter-section">
       <h3>Todas las categorías <i class="fas fa-chevron-up"></i></h3>
@@ -36,59 +72,67 @@
       </div>
     </div>
 
-    <div class="banner-section">
-      <img src="assets/banner-pub.jpg" alt="Publicidad" class="banner-img">
-      <button class="apply-btn">Aplicar <i class="fas fa-sliders-h"></i></button>
+    <div class="banner-section mt-6 md:mt-8">
+      <img src="assets/banner-pub.jpg" alt="Publicidad" class="banner-img w-full rounded-md">
+      <button class="apply-btn mt-3 w-full md:w-auto bg-cyan-500 text-white px-4 py-2 rounded-md">Aplicar <i class="fas fa-sliders-h ml-2"></i></button>
     </div>
   </aside>
 
-  <main class="main-content">
-    <div class="top-bar">
-      <div class="sort-by">
-        <label for="sort">Ordenar por:</label>
-        <select id="sort" [(ngModel)]="selectedSortOption">
+  <main class="main-content flex-1 w-full">
+    <div class="top-bar flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+      <div class="sort-by flex items-center space-x-2">
+        <label for="sort" class="text-sm">Ordenar por:</label>
+        <select id="sort" [(ngModel)]="selectedSortOption" class="border rounded px-2 py-1 text-sm">
           <option *ngFor="let option of sortOptions" [value]="option">{{ option }}</option>
         </select>
       </div>
-      <div class="results-count">
-        <strong>52</strong> Results Found
+      <div class="results-count text-sm text-gray-600">
+        <strong>52</strong> Resultados
       </div>
     </div>
 
-    <div class="product-grid">
-      <div class="product-card" *ngFor="let product of products">
-        <div class="image-container">
-          <img [src]="product.image" [alt]="product.name">
-          <span class="out-of-stock" *ngIf="product.isOutOfStock">Out of Stock</span>
-          <div class="hover-icons" *ngIf="product.hasAdditionalIcons">
-            <button><i class="far fa-heart"></i></button>
-            <button><i class="far fa-eye"></i></button>
+    <div class="product-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div class="product-card bg-white rounded-lg shadow p-4 flex flex-col h-full" *ngFor="let product of products">
+        <div class="image-container relative mb-4">
+          <img [src]="product.image" [alt]="product.name" class="w-full h-40 sm:h-44 md:h-44 lg:h-56 object-cover rounded-md">
+          <span class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded" *ngIf="product.isOutOfStock">Agotado</span>
+          <div class="hover-icons absolute top-2 right-2 flex space-x-2" *ngIf="product.hasAdditionalIcons">
+            <button class="bg-white p-2 rounded-full shadow-sm"><i class="far fa-heart"></i></button>
+            <button class="bg-white p-2 rounded-full shadow-sm"><i class="far fa-eye"></i></button>
           </div>
         </div>
-        <div class="product-details">
-          <h4 class="product-title">{{ product.name }}</h4>
-          <div class="product-price">S/ {{ product.price.toFixed(2) }}</div>
-          <div class="product-rating">
+        <div class="product-details flex-1">
+          <h4 class="product-title text-sm md:text-base font-semibold text-gray-800 mb-2 line-clamp-2">{{ product.name }}</h4>
+          <div class="product-price text-lg md:text-xl font-bold text-gray-900 mb-2">S/ {{ product.price.toFixed(2) }}</div>
+          <div class="product-rating text-yellow-400 text-sm mb-4">
             <i class="fas fa-star" *ngFor="let star of getStars(product.rating)"></i>
             <i class="far fa-star" *ngFor="let star of getStars(5 - product.rating)"></i>
           </div>
         </div>
-        <button class="add-to-cart-btn" [class.blue-btn]="product.hasAdditionalIcons">
-          <i class="fas" [ngClass]="product.hasAdditionalIcons ? 'fa-shopping-bag' : 'fa-shopping-basket'"></i>
-        </button>
+        <div class="mt-4 flex items-center gap-3">
+          <button class="w-full md:w-auto bg-cyan-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-cyan-600 transition text-sm md:text-base">Agregar al carrito</button>
+          <button class="ml-3 hidden md:inline-flex p-2 border rounded-md text-gray-600 hover:bg-gray-100" aria-label="Agregar al carrito icon">
+            <i class="fas" [ngClass]="product.hasAdditionalIcons ? 'fa-shopping-bag' : 'fa-shopping-basket'"></i>
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="pagination">
-      <button class="page-nav"><i class="fas fa-chevron-left"></i></button>
-      <button class="page-num active">1</button>
-      <button class="page-num">2</button>
-      <button class="page-num">3</button>
-      <button class="page-num">4</button>
-      <button class="page-num">5</button>
+    <div class="pagination flex items-center justify-center gap-2 mt-6 flex-wrap">
+      <button class="page-nav p-2 bg-white border rounded"><i class="fas fa-chevron-left"></i></button>
+      <button class="page-num active px-3 py-1 bg-cyan-500 text-white rounded">1</button>
+      <button class="page-num px-3 py-1">2</button>
+      <button class="page-num px-3 py-1">3</button>
+      <button class="page-num px-3 py-1">4</button>
+      <button class="page-num px-3 py-1">5</button>
       <span class="page-dots">...</span>
-      <button class="page-num">21</button>
-      <button class="page-nav"><i class="fas fa-chevron-right"></i></button>
+      <button class="page-num px-3 py-1">21</button>
+      <button class="page-nav p-2 bg-white border rounded"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <div class="md:hidden fixed bottom-4 left-4 right-4 z-50 flex items-center justify-between gap-3 bg-white p-3 rounded-lg shadow-lg">
+      <a href="#mobileFilters" class="flex-1 bg-white border rounded-md py-2 text-center">Filtros <i class="fas fa-sliders-h ml-2"></i></a>
+      <button class="flex-1 bg-cyan-500 text-white rounded-md py-2">Ordenar</button>
     </div>
   </main>
 </div>
