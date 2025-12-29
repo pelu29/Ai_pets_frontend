@@ -1,0 +1,63 @@
+<div class="dashboard-container">
+  
+  <aside class="navigation-panel">
+    <div class="navigation-header">
+      <h2 class="title">Navigation</h2>
+    </div>
+    <nav>
+      <ul>
+        <li *ngFor="let opcion of opcionesNavegacion" 
+            [class.active]="opcion.activo" 
+            (click)="seleccionarOpcion(opcion)">
+          <i [class]="opcion.icono + ' icon'"></i>
+          {{ opcion.nombre }}
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <section class="card history-card">
+      <h2 class="section-title">Order History</h2>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ORDER ID</th>
+              <th>DATE</th>
+              <th>TOTAL</th>
+              <th>STATUS</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of historialPedidos">
+              <td class="order-id">{{ pedido.id }}</td>
+              <td>{{ pedido.fecha }}</td>
+              <td>{{ pedido.total }}</td>
+              <td>{{ pedido.estado }}</td>
+              <td class="text-right">
+                <a href="javascript:void(0)" class="view-details">View Details</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-container">
+        <button class="page-btn arrow">&lt;</button>
+        
+        <button *ngFor="let pag of paginas" 
+                class="page-btn number" 
+                [class.active]="pag === paginaActual"
+                (click)="cambiarPagina(pag)">
+          {{ pag }}
+        </button>
+
+        <button class="page-btn arrow">&gt;</button>
+      </div>
+
+    </section>
+  </main>
+</div>
