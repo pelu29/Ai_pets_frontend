@@ -72,6 +72,14 @@
 
       <!-- Teléfono (desktop) -->
       <a href="tel:9540548880" class="hidden md:flex items-center hover:text-cyan-400 transition"><i class="fas fa-phone-alt mr-2"></i>954 054 880</a>
+
+      <!-- Mostrar sección actual en móvil (pill con icono) -->
+      <div class="md:hidden ml-3">
+        <div role="status" aria-live="polite" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-white font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 shadow-md transition-colors duration-200 ease-in-out">
+          <i class="fas" [ngClass]="currentIcon"></i>
+          <span class="text-sm">{{ currentSection }}</span>
+        </div>
+      </div>
     </div>
 
     <input id="nav-toggle" type="checkbox" class="hidden peer" aria-hidden="true">

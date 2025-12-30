@@ -1,18 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {
+export class Navbar implements OnInit {
+  currentSection = 'Inicio';
+  currentIcon = 'fa-home';
+
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // Inicializar la sección actual a partir de la ruta activa
+    const url = this.router.url.replace(/^\/+/, '');
+    const route = url.split('/')[0] || 'inicio';
+    this.currentSection = this.labelForRoute(route);
+    this.currentIcon = this.iconForRoute(route);
+  }
+
+  private labelForRoute(ruta: string): string {
+    const map: Record<string, string> = {
+      'inicio': 'Inicio',
+      'shop-uno': 'Tienda',
+      'nosotros': 'Nosotros',
+      'contacto': 'Contáctanos',
+    };
+    return map[ruta] || (ruta ? ruta.charAt(0).toUpperCase() + ruta.slice(1) : 'Inicio');
+  }
+
+  private iconForRoute(ruta: string): string {
+    const icons: Record<string, string> = {
+      'inicio': 'fa-home',
+      'shop-uno': 'fa-store',
+      'nosotros': 'fa-users',
+      'contacto': 'fa-envelope',
+    };
+    return icons[ruta] || 'fa-circle';
+  }
 
   navegar(ruta: string): void {
     this.router.navigate([ruta]).then(() => {
+      // Actualizar la etiqueta e icono de la sección actual
+      this.currentSection = this.labelForRoute(ruta);
+      this.currentIcon = this.iconForRoute(ruta);
+
       // Cerrar menú hamburguesa si está abierto (móvil)
       const checkbox = document.getElementById('nav-toggle') as HTMLInputElement | null;
       if (checkbox && checkbox.checked) {
