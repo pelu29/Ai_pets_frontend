@@ -6,8 +6,13 @@ interface Category {
   name: string;
   count: number;
   checked: boolean;
+<<<<<<< HEAD
 }
 
+=======
+
+}
+>>>>>>> 78c6d9e457918de3d6c51c3f50341a43eb8a0c49
 interface Tag {
   name: string;
   selected: boolean;
@@ -28,8 +33,13 @@ interface Product {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './shop-uno.html',
+<<<<<<< HEAD
     styleUrls: ['./shop-uno.css']
   })
+=======
+  styleUrl: './shop-uno.css'
+})
+>>>>>>> 78c6d9e457918de3d6c51c3f50341a43eb8a0c49
 export class ShopUno implements OnInit { 
 
   categories: Category[] = [
