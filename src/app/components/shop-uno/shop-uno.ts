@@ -89,4 +89,11 @@ products: Product[] = [
   ngOnInit(): void {
   }
 
+  openWhatsapp(product: any) {
+    const phone = '51992071210'; // +51 992 071 210
+    const message = `Hola que tal, quiero comprar: ${product.name} - S/ ${product.price?.toFixed(2) ?? ''}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
 }
