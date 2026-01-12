@@ -11,9 +11,8 @@
           <ul class="space-y-2">
             <li *ngFor="let category of categories">
               <label class="flex items-center space-x-2">
-                <input type="checkbox" [checked]="category.checked">
-                <span class="text-sm">{{ category.name }} <span class="text-gray-400">({{ category.count
-                    }})</span></span>
+                <input type="checkbox" [(ngModel)]="category.checked" name="cat-mobile-{{category.name}}" (change)="onFiltersChanged()">
+                <span class="text-sm">{{ category.name }} <span class="text-gray-400">({{ category.count }})</span></span>
               </label>
             </li>
           </ul>
@@ -31,13 +30,12 @@
         <div class="mb-4">
           <h4 class="font-semibold mb-2">Etiquetas</h4>
           <div class="flex flex-wrap gap-2">
-            <button *ngFor="let tag of popularTags" class="tag px-2 py-1 rounded text-sm"
-              [class.selected]="tag.selected">{{ tag.name }}</button>
+            <button *ngFor="let tag of popularTags" type="button" class="tag px-2 py-1 rounded text-sm" [class.selected]="tag.selected" (click)="toggleTag(tag); onFiltersChanged()">{{ tag.name }}</button>
           </div>
         </div>
 
         <div class="flex justify-end">
-          <button class="bg-cyan-500 text-white px-4 py-2 rounded-md">Aplicar</button>
+          <button type="button" class="bg-cyan-500 text-white px-4 py-2 rounded-md" (click)="onFiltersChanged()">Aplicar</button>
         </div>
       </div>
     </details>
@@ -47,7 +45,7 @@
       <ul>
         <li *ngFor="let category of categories">
           <label>
-            <input type="checkbox" [checked]="category.checked">
+            <input type="checkbox" [(ngModel)]="category.checked" name="cat-{{category.name}}" (change)="onFiltersChanged()">
             {{ category.name }} <span class="count">({{ category.count }})</span>
           </label>
         </li>
@@ -68,16 +66,18 @@
     </div>
 
     <div class="filter-section">
-      <h3>Etiqueta popular <i class="fas fa-chevron-up"></i></h3>
-      <div class="tags">
-        <button *ngFor="let tag of popularTags" class="tag" [class.selected]="tag.selected">{{ tag.name }}</button>
-      </div>
+      <h3>Disponibilidad <i class="fas fa-chevron-up"></i></h3>
+      <label class="flex items-center space-x-2">
+        <input type="checkbox" [(ngModel)]="showOnlyAvailable" (change)="onFiltersChanged()">
+        <span class="text-sm">Solo mostrar disponibles</span>
+      </label>
     </div>
 
-    <div class="banner-section mt-6 md:mt-8">
-      <img src="assets/banner-pub.jpg" alt="Publicidad" class="banner-img w-full rounded-md">
-      <button class="apply-btn mt-3 w-full md:w-auto bg-cyan-500 text-white px-4 py-2 rounded-md">Aplicar <i
-          class="fas fa-sliders-h ml-2"></i></button>
+    <div class="filter-section">
+      <h3>Etiqueta popular <i class="fas fa-chevron-up"></i></h3>
+      <div class="tags">
+        <button *ngFor="let tag of popularTags" type="button" class="tag" [class.selected]="tag.selected" (click)="toggleTag(tag); onFiltersChanged()">{{ tag.name }}</button>
+      </div>
     </div>
   </aside>
 
@@ -90,12 +90,13 @@
         </select>
       </div>
       <div class="results-count text-sm text-gray-600">
-        <strong>52</strong> Resultados
+        <strong>{{ filteredProducts.length }}</strong> Resultados
       </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
-      <div class="product-card bg-white rounded-lg shadow p-4 flex flex-col h-full" *ngFor="let product of products">
+      <div *ngIf="filteredProducts.length === 0" class="col-span-full text-center py-8 text-gray-600">No se encontraron productos con los filtros seleccionados.</div>
+      <div class="product-card bg-white rounded-lg shadow p-4 flex flex-col h-full" *ngFor="let product of filteredProducts">
         <div class="image-container relative mb-4">
           <img [src]="product.image" [alt]="product.name"
             class="w-full h-40 sm:h-44 md:h-44 lg:h-56 object-cover rounded-md">

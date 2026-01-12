@@ -19,4 +19,8 @@ export class Inicio {
     this.router.navigate(['nosotros']);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  navegar(ruta:string): void{
+    this.router.navigate([`/${ruta}`])
+  }
 } 

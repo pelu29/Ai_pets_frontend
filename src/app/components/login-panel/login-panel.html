@@ -1,0 +1,20 @@
+<div class="login-container">
+  <h2>Acceder al Panel</h2>
+
+  <div class="form-row">
+    <label>Telefono</label>
+    <input type="email" [(ngModel)]="email" placeholder="Number">
+  </div>
+
+  <div class="form-row">
+    <label>Password</label>
+    <input type="password" [(ngModel)]="password" placeholder="*********">
+  </div>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div class="form-actions">
+    <button class="btn primary" type="button" (click)="submit()">Ingresar</button>
+  </div>
+  
+</div>

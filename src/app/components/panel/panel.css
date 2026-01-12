@@ -1,0 +1,43 @@
+.panel-container { max-width: 1200px; margin: 20px auto; font-family: 'Arial', sans-serif; padding: 12px; box-sizing: border-box; }
+.panel-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; gap:12px }
+.actions { display:flex; gap:8px; align-items:center }
+.actions .btn { padding:8px 12px; border-radius:6px; background:#06b6d4; color:white; border:none; cursor:pointer }
+.panel-body { display:flex; gap:20px; align-items:flex-start }
+.form-area { flex:1; background:#fff; border:1px solid #e6e6e6; padding:18px; border-radius:8px; box-shadow: 0 1px 3px rgba(0,0,0,0.03) }
+.form-row { display:flex; flex-direction:column; margin-bottom:12px }
+.form-row label { font-weight:600; margin-bottom:6px }
+.form-row input[type=text], .form-row input[type=number], .form-row input[type=email], .form-row input[type=password] { padding:10px; border-radius:6px; border:1px solid #ccc }
+.image-preview img { max-width:220px; max-height:140px; border-radius:4px; margin-top:8px }
+.form-actions { display:flex; gap:10px; margin-top:6px }
+.btn { padding:8px 12px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; cursor:pointer }
+.btn.primary { background:#06b6d4; color:white }
+.btn.danger { background:#ef4444; color:white }
+.btn.small { padding:6px 8px; font-size:13px }
+.list-area { width: 520px; background:#fff; border:2px solid #e6e6e6; padding:18px; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04) }
+.list-area table { width:100%; border-collapse: collapse; display:block; overflow:auto; max-height:420px }
+.list-area th, .list-area td { padding:10px; text-align:left; border-bottom:1px solid #f0f0f0; white-space:nowrap }
+.td-img img { width:72px; height:48px; object-fit:cover; border-radius:4px }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .panel-container { padding: 10px }
+  .panel-body { gap:16px }
+  .list-area { width: 420px }
+}
+
+@media (max-width: 640px) {
+  .panel-body { flex-direction:column }
+  .list-area { width: 100%; max-width: 100%; padding:14px }
+  .form-area { width: 100%; }
+  .list-area table { max-height: 260px }
+  .td-img img { width:52px; height:36px }
+  .panel-header { flex-direction:column; align-items:flex-start; gap:8px }
+  .actions { width:100%; justify-content:flex-start }
+}
+
+/* Spacing tweaks for buttons in lists */
+.list-area button { margin-right:8px }
+
+/* Minor visual improvements */
+.list-area tr:hover { background: #fafafa }
+

@@ -1,0 +1,95 @@
+<div class="panel-container">
+  <div class="panel-header">
+    <h2>Agregar Productos</h2>
+    <div class="actions">
+      <button class="btn" type="button" (click)="startAdd()">Agregar producto</button>
+      <button class="btn" type="button" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div class="form-area">
+      <h3 *ngIf="editingId">Editando producto #{{ editingId }}</h3>
+
+      <div class="form-row">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="form.name">
+      </div>
+
+      <div class="form-row">
+        <label>Precio</label>
+        <input type="number" [(ngModel)]="form.price">
+      </div>
+
+      <div class="form-row">
+        <label>Categoría</label>
+        <input type="text" [(ngModel)]="form.category">
+      </div>
+
+      <div class="form-row">
+        <label>Etiquetas (separadas por coma)</label>
+        <input type="text" [(ngModel)]="formTags">
+      </div>
+
+      <div class="form-row">
+        <label>Rating</label>
+        <input type="number" min="0" max="5" [(ngModel)]="form.rating">
+      </div>
+
+      <div class="form-row">
+        <label>Disponible</label>
+        <input type="checkbox" [(ngModel)]="form.isOutOfStock" [checked]="form.isOutOfStock">
+        <small>(marcar si está agotado)</small>
+      </div>
+
+      <div class="form-row">
+        <label>Mostrar íconos</label>
+        <input type="checkbox" [(ngModel)]="form.hasAdditionalIcons" [checked]="form.hasAdditionalIcons">
+      </div>
+
+      <div class="form-row">
+        <label>Imagen</label>
+        <input type="file" (change)="onImageSelected($event)">
+        <div class="image-preview" *ngIf="form.image">
+          <img [src]="form.image" alt="preview">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn primary" type="button" (click)="save()">Guardar</button>
+        <button class="btn" type="button" (click)="cancel()">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="list-area">
+      <h3>Productos</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Etiquetas</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of products">
+            <td>{{ p.id }}</td>
+            <td class="td-img"><img [src]="p.image" alt="img"></td>
+            <td>{{ p.name }}</td>
+            <td>S/ {{ p.price.toFixed(2) }}</td>
+            <td>{{ p.category }}</td>
+            <td>{{ (p.tags || []).join(', ') }}</td>
+            <td>
+              <button class="btn" type="button" (click)="edit(p)">Editar</button>
+              <button class="btn danger" type="button" (click)="remove(p)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> 

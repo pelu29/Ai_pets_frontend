@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { Productos } from '../../services/productos/productos';
 
 interface Category {
   name: string;
@@ -19,6 +20,8 @@ interface Product {
   price: number;
   image: string;
   rating: number;
+  category?: string;
+  tags?: string[];
   isOutOfStock?: boolean;
   hasAdditionalIcons?: boolean;
 }
@@ -32,61 +35,106 @@ interface Product {
 })
 export class ShopUno implements OnInit { 
 
-  categories: Category[] = [
-    { name: 'Medicamentos y Tratamientos', count: 134, checked: false },
-    { name: 'Accesorios', count: 110, checked: true },
-    { name: 'Antiparasitarios', count: 54, checked: false },
-    { name: 'Vitaminas y Suplementos', count: 47, checked: false },
-    { name: 'Descartables', count: 45, checked: false },
-    { name: 'Alimentos', count: 30, checked: false },
-    { name: 'Higiene y Cuidado', count: 15, checked: false }
-  ];
+  // categorías y etiquetas se inicializan dinámicamente a partir de los productos
+  categories: Category[] = [];
+  popularTags: Tag[] = [];
+  showOnlyAvailable = false;
 
-  popularTags: Tag[] = [
-    { name: 'Juguetes', selected: false },
-    { name: 'Collares', selected: true },
-    { name: 'Transporte', selected: false },
-    { name: 'Ropa', selected: false },
-    { name: 'Camas', selected: false },
-    { name: 'Económicos', selected: false },
-    { name: 'Meds', selected: false },
-    { name: 'Snacks', selected: false },
-    { name: 'Alta calidad', selected: false },
-    { name: 'Higiene', selected: false },
-    { name: 'Arneses', selected: false },
-    { name: 'Antipulgas', selected: false }
-  ];
+  products: Product[] = [];
 
-products: Product[] = [
-    { id: 1, name: 'PLAQUITA GRABADA DORADA-PLATEADA', price: 35.00, image: 'https://i.imgur.com/8skZDoc.jpeg', rating: 4 },
-    { id: 2, name: 'COLLAR GRABADO', price: 25.00, image: 'https://i.imgur.com/i2FFa9r.jpeg', rating: 5, hasAdditionalIcons: true },
-    { id: 3, name: 'COLLARES GRANDES', price: 20.00, image: 'https://i.imgur.com/VSt0OrX.jpeg', rating: 4, isOutOfStock: true },
-    { id: 4, name: 'PELOTA GRANDE', price: 18.00, image: 'https://i.imgur.com/RuyVBoN.jpeg', rating: 3 },
-    { id: 5, name: 'POLERA DINO TALLA 2', price: 25.00, image: 'https://i.imgur.com/brSXPof.jpeg', rating: 4 },
-    { id: 6, name: 'PLACA DE IDENTIFICACIÓN ALUMINIO - GATOS', price: 25.00, image: 'https://i.imgur.com/FmZBhri.jpeg', rating: 5 },
-    { id: 7, name: 'TRANSPORTADOR KENNEL CHICO', price: 80.00, image: 'https://i.imgur.com/4bHLX2d.jpeg', rating: 4 },
-    { id: 8, name: 'IMPERMEABLE ROSADO METÁLICO T3', price: 35.00, image: 'https://i.imgur.com/qzVu88M.jpeg', rating: 4 },
-    { id: 9, name: 'VESTIDO ABEJITA TALLA 4', price: 40.00, image: 'https://i.imgur.com/kGbNovW.jpeg', rating: 3 },
-    { id: 10, name: 'FAJA HEMBRA TALLA 2', price: 36.00, image: 'https://i.imgur.com/cimJAq6.jpeg', rating: 4 },
-    { id: 11, name: 'FAJA MACHO TALLA 0 (ALGODÓN)', price: 46.00, image: 'https://i.imgur.com/OVDpSEF.jpeg', rating: 5 },
-    { id: 12, name: 'ARENA DE GATO SOMOCAT 5KG', price: 28.00, image: 'https://i.imgur.com/yrqz23w.jpeg', rating: 5, hasAdditionalIcons: true },
-    { id: 13, name: 'SOFA CAMA T-L', price: 60.00, image: 'https://i.imgur.com/1oRXRh6.jpeg', rating: 4 },
-    { id: 14, name: 'ROPA NAVIDEÑA TALLA 4', price: 25.00, image: 'https://i.imgur.com/5RzEk2G.jpeg', rating: 5 },
-    { id: 15, name: 'PECHERA REYCAN TALLA "M"', price: 50.00, image: 'https://i.imgur.com/De1zJll.jpeg', rating: 4 }
-  ];
+  constructor(private productosService: Productos) { }
+
+  ngOnInit(): void {
+    this.loadProducts();
+    window.addEventListener('productos:changed', () => this.loadProducts());
+  }
+
+  loadProducts() {
+    this.products = this.productosService.getAll().map(p => ({
+      id: p.id,
+      name: p.name,
+      price: p.price,
+      image: p.image,
+      rating: p.rating ?? 4,
+      category: p.category,
+      tags: p.tags ?? [],
+      isOutOfStock: p.isOutOfStock,
+      hasAdditionalIcons: p.hasAdditionalIcons
+    }));
+
+    this.initFilters();
+  }
 
   sortOptions = ['El último', 'Precio: Bajo a Alto', 'Precio: Alto a Bajo'];
   selectedSortOption = this.sortOptions[0];
-  minPrice = 50;
+  minPrice = 0;
   maxPrice = 1500;
   
   getStars(rating: number): number[] {
     return Array(rating).fill(0);
   }
 
-  constructor() { }
+  initFilters() {
+    // crear lista de categorías con conteos a partir de los productos
+    const catMap: Record<string, number> = {};
+    const tagMap: Record<string, number> = {};
 
-  ngOnInit(): void {
+    this.products.forEach(p => {
+      const c = p.category ?? 'Sin categoría';
+      catMap[c] = (catMap[c] || 0) + 1;
+      (p.tags || []).forEach(t => tagMap[t] = (tagMap[t] || 0) + 1);
+    });
+
+    this.categories = Object.keys(catMap).map(name => ({ name, count: catMap[name], checked: false }));
+
+    // tags ordenadas por frecuencia
+    this.popularTags = Object.keys(tagMap)
+      .sort((a, b) => tagMap[b] - tagMap[a])
+      .slice(0, 12)
+      .map(name => ({ name, selected: false }));
+
+    // ajustar rangos de precio con base en productos
+    const prices = this.products.map(p => p.price);
+    this.minPrice = Math.min(...prices);
+    this.maxPrice = Math.max(...prices);
+  }
+
+  get filteredProducts(): Product[] {
+    let results = this.products.filter(p => p.price >= this.minPrice && p.price <= this.maxPrice);
+
+    const activeCategories = this.categories.filter(c => c.checked).map(c => c.name);
+    if (activeCategories.length) {
+      results = results.filter(p => activeCategories.includes(p.category ?? ''));
+    }
+
+    const activeTags = this.popularTags.filter(t => t.selected).map(t => t.name);
+    if (activeTags.length) {
+      results = results.filter(p => (p.tags || []).some(tag => activeTags.includes(tag)));
+    }
+
+    if (this.showOnlyAvailable) {
+      results = results.filter(p => !p.isOutOfStock);
+    }
+
+    // orden
+    if (this.selectedSortOption === 'Precio: Bajo a Alto') {
+      results = results.sort((a, b) => a.price - b.price);
+    } else if (this.selectedSortOption === 'Precio: Alto a Bajo') {
+      results = results.sort((a, b) => b.price - a.price);
+    } else {
+      // 'El último' por defecto: orden descendente por id
+      results = results.sort((a, b) => b.id - a.id);
+    }
+
+    return results;
+  }
+
+  toggleTag(tag: Tag) {
+    tag.selected = !tag.selected;
+  }
+
+  onFiltersChanged() {
+    // placeholder por si queremos ejecutar lógica adicional al cambiar filtros
   }
 
   openWhatsapp(product: any) {
