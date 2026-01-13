@@ -3,42 +3,32 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Productos } from '../../services/productos/productos';
 
-interface Category {
-  name: string;
-  count: number;
-  checked: boolean;
-
-}
-interface Tag {
-  name: string;
-  selected: boolean;
-}
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  rating: number;
-  category?: string;
-  tags?: string[];
-  isOutOfStock?: boolean;
-  hasAdditionalIcons?: boolean;
-}
+import { Category } from '../../models/category.model';
+import { Tag } from '../../models/tag.model';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-shop-uno',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './shop-uno.html',
-  styleUrl: './shop-uno.css'
+  styleUrls: ['./shop-uno.css']
 })
 export class ShopUno implements OnInit { 
 
-  // categorías y etiquetas se inicializan dinámicamente a partir de los productos
+  // valores aplicados 
   categories: Category[] = [];
   popularTags: Tag[] = [];
   showOnlyAvailable = false;
+  minPrice = 0;
+  maxPrice = 1500;
+
+  // valores temporales 
+  tempCategories: Category[] = [];
+  tempTags: Tag[] = [];
+  tempShowOnlyAvailable = false;
+  tempMinPrice = 0;
+  tempMaxPrice = 1500;
 
   products: Product[] = [];
 
@@ -67,15 +57,16 @@ export class ShopUno implements OnInit {
 
   sortOptions = ['El último', 'Precio: Bajo a Alto', 'Precio: Alto a Bajo'];
   selectedSortOption = this.sortOptions[0];
-  minPrice = 0;
-  maxPrice = 1500;
+
   
+  currentPage = 1;
+  pageSize = 9;
+
   getStars(rating: number): number[] {
     return Array(rating).fill(0);
   }
 
   initFilters() {
-    // crear lista de categorías con conteos a partir de los productos
     const catMap: Record<string, number> = {};
     const tagMap: Record<string, number> = {};
 
@@ -86,19 +77,24 @@ export class ShopUno implements OnInit {
     });
 
     this.categories = Object.keys(catMap).map(name => ({ name, count: catMap[name], checked: false }));
+    this.tempCategories = this.categories.map(c => ({ ...c }));
 
-    // tags ordenadas por frecuencia
     this.popularTags = Object.keys(tagMap)
       .sort((a, b) => tagMap[b] - tagMap[a])
       .slice(0, 12)
       .map(name => ({ name, selected: false }));
+    this.tempTags = this.popularTags.map(t => ({ ...t }));
 
-    // ajustar rangos de precio con base en productos
     const prices = this.products.map(p => p.price);
-    this.minPrice = Math.min(...prices);
-    this.maxPrice = Math.max(...prices);
+    if (prices.length) {
+      this.minPrice = Math.min(...prices);
+      this.maxPrice = Math.max(...prices);
+      this.tempMinPrice = this.minPrice;
+      this.tempMaxPrice = this.maxPrice;
+    }
   }
 
+  //filtrado
   get filteredProducts(): Product[] {
     let results = this.products.filter(p => p.price >= this.minPrice && p.price <= this.maxPrice);
 
@@ -116,32 +112,44 @@ export class ShopUno implements OnInit {
       results = results.filter(p => !p.isOutOfStock);
     }
 
-    // orden
     if (this.selectedSortOption === 'Precio: Bajo a Alto') {
-      results = results.sort((a, b) => a.price - b.price);
+      results = [...results].sort((a, b) => a.price - b.price);
     } else if (this.selectedSortOption === 'Precio: Alto a Bajo') {
-      results = results.sort((a, b) => b.price - a.price);
+      results = [...results].sort((a, b) => b.price - a.price);
     } else {
-      // 'El último' por defecto: orden descendente por id
-      results = results.sort((a, b) => b.id - a.id);
+      results = [...results].sort((a, b) => b.id - a.id);
     }
 
     return results;
   }
 
-  toggleTag(tag: Tag) {
+  // Productos de la pagina
+  get paginatedProducts(): Product[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredProducts.slice(start, start + this.pageSize);
+  }
+
+  toggleTempTag(tag: Tag) {
     tag.selected = !tag.selected;
   }
 
-  onFiltersChanged() {
-    // placeholder por si queremos ejecutar lógica adicional al cambiar filtros
+  applyFilters() {
+    this.minPrice = this.tempMinPrice;
+    this.maxPrice = this.tempMaxPrice;
+    this.categories = this.tempCategories.map(c => ({ ...c }));
+    this.popularTags = this.tempTags.map(t => ({ ...t }));
+    this.showOnlyAvailable = this.tempShowOnlyAvailable;
+    this.currentPage = 1;
   }
 
-  openWhatsapp(product: any) {
-    const phone = '51992071210'; // +51 992 071 210
+  openWhatsapp(product: Product) {
+    const phone = '51992071210';
     const message = `Hola que tal, quiero comprar: ${product.name} - S/ ${product.price?.toFixed(2) ?? ''}`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
 }

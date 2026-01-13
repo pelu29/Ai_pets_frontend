@@ -4,7 +4,7 @@ export interface ProductAdmin {
   id: number;
   name: string;
   price: number;
-  image: string; // data URL or external URL
+  image: string; 
   rating?: number;
   category?: string;
   tags?: string[];
@@ -33,7 +33,7 @@ export class Productos {
     try {
       window.dispatchEvent(new CustomEvent('productos:changed'));
     } catch (e) {
-      // ignore
+      
     }
   }
 
@@ -48,12 +48,21 @@ export class Productos {
   }
 
   private seedDefaults() {
-    this.products = [
-      { id: 1, name: 'PLAQUITA GRABADA DORADA-PLATEADA', price: 35.0, image: 'https://i.imgur.com/8skZDoc.jpeg', rating: 4, category: 'Accesorios', tags: ['Collares','Alta calidad'] },
-      { id: 2, name: 'COLLAR GRABADO', price: 25.0, image: 'https://i.imgur.com/i2FFa9r.jpeg', rating: 5, hasAdditionalIcons: true, category: 'Accesorios', tags: ['Collares','Grabado'] },
-      { id: 3, name: 'COLLARES GRANDES', price: 20.0, image: 'https://i.imgur.com/VSt0OrX.jpeg', rating: 4, isOutOfStock: true, category: 'Accesorios', tags: ['Collares','Grande'] }
-    ];
-  }
+  this.products = [
+    { id: 1, name: 'PLAQUITA GRABADA DORADA-PLATEADA', price: 35.0, image: 'https://i.imgur.com/8skZDoc.jpeg', rating: 4, category: 'Accesorios', tags: ['Collares','Alta calidad'] },
+    { id: 2, name: 'COLLAR GRABADO', price: 25.0, image: 'https://i.imgur.com/i2FFa9r.jpeg', rating: 5, hasAdditionalIcons: true, category: 'Accesorios', tags: ['Collares','Grabado'] },
+    { id: 3, name: 'COLLARES GRANDES', price: 20.0, image: 'https://i.imgur.com/VSt0OrX.jpeg', rating: 4, isOutOfStock: true, category: 'Accesorios', tags: ['Collares','Grande'] },
+
+    { id: 4, name: 'Juguete mordedor para perro', price: 15.0, image: '', rating: 4, category: 'Juguetes', tags: ['Perro','Mordedor'] },
+    { id: 5, name: 'Arena para gato 10kg', price: 65.0, image: '', rating: 5, category: 'Higiene', tags: ['Gato','Arena'] },
+    { id: 6, name: 'Comida premium para perro 5kg', price: 120.0, image: '', rating: 4, category: 'Alimentos', tags: ['Perro','Comida'] },
+    { id: 7, name: 'Cama acolchada para gato', price: 80.0, image: '', rating: 5, category: 'Accesorios', tags: ['Gato','Cama'] },
+    { id: 8, name: 'Shampoo antipulgas', price: 30.0, image: '', rating: 4, category: 'Higiene', tags: ['Perro','Shampoo'] },
+    { id: 9, name: 'Correa extensible', price: 40.0, image: '', rating: 5, category: 'Accesorios', tags: ['Perro','Correa'] },
+    { id: 10, name: 'Snacks para gato', price: 22.0, image: '', rating: 4, category: 'Alimentos', tags: ['Gato','Snacks'] }
+  ];
+}
+
 
   getAll(): ProductAdmin[] {
     return JSON.parse(JSON.stringify(this.products));

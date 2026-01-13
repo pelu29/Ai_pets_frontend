@@ -1,5 +1,7 @@
 <div class="shop-container flex flex-col md:flex-row gap-6 px-4 md:px-8">
+  
   <aside class="sidebar hidden md:block md:w-80 flex-shrink-0">
+    
     <details id="mobileFilters" class="block md:hidden mb-4 rounded-md border overflow-hidden">
       <summary class="bg-cyan-500 text-white px-4 py-3 rounded-md flex items-center justify-between cursor-pointer">
         <span class="font-semibold">Filtrar</span>
@@ -9,9 +11,9 @@
         <div class="mb-4">
           <h4 class="font-semibold mb-2">Categorías</h4>
           <ul class="space-y-2">
-            <li *ngFor="let category of categories">
+            <li *ngFor="let category of tempCategories">
               <label class="flex items-center space-x-2">
-                <input type="checkbox" [(ngModel)]="category.checked" name="cat-mobile-{{category.name}}" (change)="onFiltersChanged()">
+                <input type="checkbox" [(ngModel)]="category.checked" name="cat-mobile-{{category.name}}">
                 <span class="text-sm">{{ category.name }} <span class="text-gray-400">({{ category.count }})</span></span>
               </label>
             </li>
@@ -21,31 +23,48 @@
         <div class="mb-4">
           <h4 class="font-semibold mb-2">Precio</h4>
           <div class="flex items-center space-x-2">
-            <span class="text-sm">S/ {{ minPrice }}</span>
-            <input type="range" min="0" max="1500" [(ngModel)]="minPrice" class="flex-1">
-            <span class="text-sm">S/ {{ maxPrice }}</span>
+            <span class="text-sm">S/ {{ tempMinPrice }}</span>
+            <input type="range" min="0" max="1500" [(ngModel)]="tempMinPrice" class="flex-1">
+            <span class="text-sm">S/ {{ tempMaxPrice }}</span>
+            <input type="range" min="0" max="1500" [(ngModel)]="tempMaxPrice" class="flex-1">
           </div>
         </div>
 
         <div class="mb-4">
           <h4 class="font-semibold mb-2">Etiquetas</h4>
           <div class="flex flex-wrap gap-2">
-            <button *ngFor="let tag of popularTags" type="button" class="tag px-2 py-1 rounded text-sm" [class.selected]="tag.selected" (click)="toggleTag(tag); onFiltersChanged()">{{ tag.name }}</button>
+            <button
+              *ngFor="let tag of tempTags"
+              type="button"
+              class="tag px-2 py-1 rounded text-sm"
+              [class.selected]="tag.selected"
+              (click)="toggleTempTag(tag)">
+              {{ tag.name }}
+            </button>
           </div>
         </div>
 
+        <div class="mb-4">
+          <h4 class="font-semibold mb-2">Disponibilidad</h4>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" [(ngModel)]="tempShowOnlyAvailable">
+            <span class="text-sm">Solo mostrar disponibles</span>
+          </label>
+        </div>
+
         <div class="flex justify-end">
-          <button type="button" class="bg-cyan-500 text-white px-4 py-2 rounded-md" (click)="onFiltersChanged()">Aplicar</button>
+          <button type="button" class="bg-cyan-500 text-white px-4 py-2 rounded-md" (click)="applyFilters()">Aplicar</button>
         </div>
       </div>
     </details>
 
+    
     <div class="filter-section">
       <h3>Todas las categorías <i class="fas fa-chevron-up"></i></h3>
       <ul>
-        <li *ngFor="let category of categories">
+        <li *ngFor="let category of tempCategories">
           <label>
-            <input type="checkbox" [(ngModel)]="category.checked" name="cat-{{category.name}}" (change)="onFiltersChanged()">
+            <input type="checkbox" [(ngModel)]="category.checked" name="cat-{{category.name}}">
             {{ category.name }} <span class="count">({{ category.count }})</span>
           </label>
         </li>
@@ -56,19 +75,23 @@
       <h3>Precio <i class="fas fa-chevron-up"></i></h3>
       <div class="price-slider">
         <div class="slider-track"></div>
-        <div class="slider-range" [style.left.%]="(minPrice/1500)*100" [style.right.%]="100-(maxPrice/1500)*100"></div>
-        <input type="range" min="0" max="1500" [(ngModel)]="minPrice" class="range-input min-range">
-        <input type="range" min="0" max="1500" [(ngModel)]="maxPrice" class="range-input max-range">
+        <div
+          class="slider-range"
+          [style.left.%]="(tempMinPrice/1500)*100"
+          [style.right.%]="100-(tempMaxPrice/1500)*100">
+        </div>
+        <input type="range" min="0" max="1500" [(ngModel)]="tempMinPrice" class="range-input min-range">
+        <input type="range" min="0" max="1500" [(ngModel)]="tempMaxPrice" class="range-input max-range">
       </div>
       <div class="price-values">
-        Price: S/ {{ minPrice }} — S/ {{ maxPrice }}
+        Price: S/ {{ tempMinPrice }} — S/ {{ tempMaxPrice }}
       </div>
     </div>
 
     <div class="filter-section">
       <h3>Disponibilidad <i class="fas fa-chevron-up"></i></h3>
       <label class="flex items-center space-x-2">
-        <input type="checkbox" [(ngModel)]="showOnlyAvailable" (change)="onFiltersChanged()">
+        <input type="checkbox" [(ngModel)]="tempShowOnlyAvailable">
         <span class="text-sm">Solo mostrar disponibles</span>
       </label>
     </div>
@@ -76,11 +99,26 @@
     <div class="filter-section">
       <h3>Etiqueta popular <i class="fas fa-chevron-up"></i></h3>
       <div class="tags">
-        <button *ngFor="let tag of popularTags" type="button" class="tag" [class.selected]="tag.selected" (click)="toggleTag(tag); onFiltersChanged()">{{ tag.name }}</button>
+        <button
+          *ngFor="let tag of tempTags"
+          type="button"
+          class="tag"
+          [class.selected]="tag.selected"
+          (click)="toggleTempTag(tag)">
+          {{ tag.name }}
+        </button>
       </div>
+    </div>
+
+    <div class="flex justify-end mt-4">
+      <button type="button" class="bg-cyan-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-cyan-600 transition"
+              (click)="applyFilters()">
+        Filtrar
+      </button>
     </div>
   </aside>
 
+  <!-- Main content -->
   <main class="main-content flex-1 w-full">
     <div class="top-bar flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
       <div class="sort-by flex items-center space-x-2">
@@ -95,28 +133,29 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
-      <div *ngIf="filteredProducts.length === 0" class="col-span-full text-center py-8 text-gray-600">No se encontraron productos con los filtros seleccionados.</div>
+      <div *ngIf="filteredProducts.length === 0" class="col-span-full text-center py-8 text-gray-600">
+        No se encontraron productos con los filtros seleccionados.
+      </div>
+
       <div class="product-card bg-white rounded-lg shadow p-4 flex flex-col h-full" *ngFor="let product of filteredProducts">
         <div class="image-container relative mb-4">
-          <img [src]="product.image" [alt]="product.name"
-            class="w-full h-40 sm:h-44 md:h-44 lg:h-56 object-cover rounded-md">
-          <span class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded"
-            *ngIf="product.isOutOfStock">Agotado</span>
+          <img [src]="product.image" [alt]="product.name" class="w-full h-40 sm:h-44 md:h-44 lg:h-56 object-cover rounded-md">
+          <span class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded" *ngIf="product.isOutOfStock">Agotado</span>
           <div class="hover-icons absolute top-2 right-2 flex space-x-2" *ngIf="product.hasAdditionalIcons">
             <button class="bg-white p-2 rounded-full shadow-sm"><i class="far fa-heart"></i></button>
             <button class="bg-white p-2 rounded-full shadow-sm"><i class="far fa-eye"></i></button>
           </div>
         </div>
+
         <div class="product-details flex-1">
-          <h4 class="product-title text-sm md:text-base font-semibold text-gray-800 mb-2 line-clamp-2">{{ product.name
-            }}</h4>
-          <div class="product-price text-lg md:text-xl font-bold text-gray-900 mb-2">S/ {{ product.price.toFixed(2) }}
-          </div>
+          <h4 class="product-title text-sm md:text-base font-semibold text-gray-800 mb-2 line-clamp-2">{{ product.name }}</h4>
+          <div class="product-price text-lg md:text-xl font-bold text-gray-900 mb-2">S/ {{ product.price.toFixed(2) }}</div>
           <div class="product-rating text-yellow-400 text-sm mb-4">
             <i class="fas fa-star" *ngFor="let star of getStars(product.rating)"></i>
             <i class="far fa-star" *ngFor="let star of getStars(5 - product.rating)"></i>
           </div>
         </div>
+
         <div class="mt-4 flex items-center gap-3">
           <button
             (click)="openWhatsapp(product)"
@@ -124,14 +163,14 @@
             class="hover:cursor-pointer w-full md:w-auto bg-cyan-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-cyan-600 transition text-sm md:text-base">
             Comprar
           </button>
-          <button class="ml-3 hidden md:inline-flex p-2 border rounded-md text-gray-600 hover:bg-gray-100"
-            aria-label="Agregar al carrito icon">
+          <button class="ml-3 hidden md:inline-flex p-2 border rounded-md text-gray-600 hover:bg-gray-100" aria-label="Agregar al carrito icon">
             <i class="fas" [ngClass]="product.hasAdditionalIcons ? 'fa-shopping-bag' : 'fa-shopping-basket'"></i>
           </button>
         </div>
       </div>
     </div>
 
+    
     <div class="pagination flex items-center justify-center gap-2 mt-6 flex-wrap">
       <button class="page-nav p-2 bg-white border rounded"><i class="fas fa-chevron-left"></i></button>
       <button class="page-num active px-3 py-1 bg-cyan-500 text-white rounded">1</button>
@@ -144,10 +183,9 @@
       <button class="page-nav p-2 bg-white border rounded"><i class="fas fa-chevron-right"></i></button>
     </div>
 
-    <div
-      class="md:hidden fixed bottom-4 left-4 right-4 z-50 flex items-center justify-between gap-3 bg-white p-3 rounded-lg shadow-lg">
-      <a href="#mobileFilters" class="flex-1 bg-white border rounded-md py-2 text-center">Filtros <i
-          class="fas fa-sliders-h ml-2"></i></a>
+    
+    <div class="md:hidden fixed bottom-4 left-4 right-4 z-50 flex items-center justify-between gap-3 bg-white p-3 rounded-lg shadow-lg">
+      <a href="#mobileFilters" class="flex-1 bg-white border rounded-md py-2 text-center">Filtros <i class="fas fa-sliders-h ml-2"></i></a>
       <button class="flex-1 bg-cyan-500 text-white rounded-md py-2">Ordenar</button>
     </div>
   </main>
