@@ -9,6 +9,7 @@ import { Producto } from '../../models/producto.model';
   templateUrl: './carrito.html',
   styleUrl: './carrito.css',
 })
+
 export class Carrito {
   items: ItemCarrito[] = [
     // Ejemplo de datos, en un app real vendrían de un servicio

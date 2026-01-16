@@ -1,0 +1,108 @@
+[33mcommit 0328f5f7edd9f9969cf61fda6cce864779a9be79[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Mon Jan 12 17:59:24 2026 -0500
+
+    Actualización de panel de login para agregar productos ademas de implementacion responsiva
+
+[33mcommit fee60b8542770524a44491c5c6243d98baed8e24[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Sun Jan 4 11:36:31 2026 -0500
+
+    Botones de comprar en la seccion de tienda
+
+[33mcommit 78c6d9e457918de3d6c51c3f50341a43eb8a0c49[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Mon Dec 29 23:37:19 2025 -0500
+
+    Resolviendo conflictos en el navbar y la sección de productos
+
+[33mcommit 1801206c42bee0ececbe204ed7434e3ee02c29ce[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Mon Dec 29 18:48:42 2025 -0500
+
+    Configuración responsiva
+
+[33mcommit ff026ff76e46c3c785844d712b68c2c3f7f9220c[m
+Merge: 1ab7e36 b10f287
+Author: Darwin Flores <floresjack74@gmail.com>
+Date:   Mon Dec 29 01:47:02 2025 -0500
+
+    Merge pull request #2 from shirocaya/feature/lista-deseos-carrito-pago
+    
+    Feature/lista deseos carrito pago
+
+[33mcommit b10f2877d3b813bc0648fe23ae5378d60ed2050a[m
+Merge: 74bf7ae 1ab7e36
+Author: Darwin Flores <floresjack74@gmail.com>
+Date:   Mon Dec 29 01:46:45 2025 -0500
+
+    Merge branch 'main' into feature/lista-deseos-carrito-pago
+
+[33mcommit 1ab7e36d63fd04c555e57843467e9e4c7b5ada34[m
+Merge: 0b326e2 2488671
+Author: Darwin Flores <floresjack74@gmail.com>
+Date:   Mon Dec 29 01:43:57 2025 -0500
+
+    Merge pull request #4 from pelu29/feature/shop-uno
+    
+    componente: shop-uno
+
+[33mcommit 2488671294d13556df52a433487473fb5156eefe[m[33m ([m[1;31morigin/feature/shop-uno[m[33m)[m
+Author: Blackpro666 <carlosrioespejo4@gmail.com>
+Date:   Wed Dec 24 16:56:59 2025 -0500
+
+    Agrega componente shop-uno
+
+[33mcommit 74bf7aea92af5b826b9ae9d6222d3ee27e59b776[m[33m ([m[1;31morigin/feature/lista-deseos-carrito-pago[m[33m)[m
+Author: shirocaya <p4m304r0j4z@gmail.com>
+Date:   Tue Dec 23 11:31:30 2025 -0500
+
+    Trabajo Final
+
+[33mcommit a3e640e1ca822da9896d60f7d0d2759feca1bb94[m
+Author: shirocaya <p4m304r0j4z@gmail.com>
+Date:   Tue Dec 23 10:58:55 2025 -0500
+
+    Ajustes
+
+[33mcommit 49cce66ab2fdeab5c325252100498a52e4db3772[m
+Author: Andres <andreschavezquispe@gmail.com>
+Date:   Fri Dec 19 10:53:13 2025 -0500
+
+    Tarea AI PETS - ANDRES
+
+[33mcommit fc8a4bac407d058d0778cf990bbde35562e2f235[m
+Author: shirocaya <p4m304r0j4z@gmail.com>
+Date:   Thu Dec 18 13:39:29 2025 -0500
+
+    Finaliza vista de pago con resumen de orden y selects
+
+[33mcommit 4ae2d17401ed3cc29238eeddfc9ec9accea4c997[m
+Author: shirocaya <p4m304r0j4z@gmail.com>
+Date:   Thu Dec 18 08:46:31 2025 -0500
+
+    Introduciendo a la rama
+
+[33mcommit 0b326e2621efc8fdb35963d15b7a6c8be4636b84[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Sun Dec 14 12:02:32 2025 -0500
+
+    Definiendo rutas para el navbar
+
+[33mcommit 70ae987fd24e17aa24ae5ab0be57fb7a8c034958[m[33m ([m[1;31morigin/shop-uno[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Sun Dec 14 11:57:44 2025 -0500
+
+    Componentes principales y diseños iniciales creados con exito.
+
+[33mcommit 0ca3ef3709fd38005593aaf16580c452be9a8ca4[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Wed Dec 10 11:23:16 2025 -0500
+
+    Creando archivos de servicio
+
+[33mcommit ef016fa23108ee8595826085371d9d01be2d5018[m
+Author: Darwin <floresjack74@gmail.com>
+Date:   Wed Dec 3 22:22:02 2025 -0500
+
+    initial commit

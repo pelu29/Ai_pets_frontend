@@ -15,6 +15,11 @@ export class Inicio {
     window.open(url, '_blank');
   }
 
+  abrirWhatsapp(phone: string): void {
+    const url = `https://wa.me/${phone}`;
+    window.open(url, '_blank');
+  }
+
   irANosotros(): void {
     this.router.navigate(['nosotros']);
     window.scrollTo({ top: 0, behavior: 'smooth' });
