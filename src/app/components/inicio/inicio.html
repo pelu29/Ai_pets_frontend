@@ -1,45 +1,23 @@
 <!-- Sección de banners -->
-<div class="container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="mx-auto">
+    <div class="">
         <!-- Banner 1: Salud y bienestar -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg h-64 md:h-80">
+        <div class="relative overflow-hidden shadow-lg h-80 md:h-96">
             <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=800&h=600&fit=crop"
                 alt="Veterinario con perro" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent">
-                <div class="flex flex-col justify-center h-full pl-8 md:pl-12">
-                    <h2 class="text-white text-3xl md:text-4xl font-bold leading-tight mb-6">
-                        Salud y bienestar<br>para tu mascota
+                <div class="flex flex-col justify-center h-full px-6 sm:px-8 md:pl-50 py-8 md:py-0">
+                    <h2 class="text-white text-2xl sm:text-3xl md:text-4xl geom-bold mb-4">
+                        Salud y bienestar para <br> tu mascota
                     </h2>
-                    <button (click)="navegar('shop-uno')"
-                        class="hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center w-fit">
-                        Comprar
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Banner 2: El mejor lugar -->
-        <div class="relative rounded-2xl overflow-hidden shadow-lg h-64 md:h-80"
-            style="background: linear-gradient(135deg, #FFB5B5 0%, #FFC8A8 100%);">
-            <div class="absolute inset-0 opacity-20">
-                <svg class="w-full h-full" viewBox="0 0 400 400" fill="none">
-                    <circle cx="50" cy="50" r="30" fill="#FF6B9D" />
-                    <circle cx="350" cy="100" r="40" fill="#FFE4E1" />
-                    <path d="M100 200 Q150 150 200 200 T300 200" stroke="#FF6B9D" stroke-width="20" fill="none" />
-                    <circle cx="80" cy="300" r="25" fill="#FFDAB9" />
-                    <circle cx="320" cy="280" r="35" fill="#FF6B9D" />
-                </svg>
-            </div>
-            <div class="relative flex flex-col justify-between h-full p-8 md:p-12">
-                <div>
-                    <h2 class="text-gray-800 text-2xl md:text-3xl font-bold leading-tight">
-                        EL MEJOR LUGAR PARA<br>EL CUIDADO DE TU<br><span class="text-pink-600">MASCOTA</span>
-                    </h2>
-                </div>
-                <div class="flex justify-center">
-                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=300&h=300&fit=crop"
-                        alt="Perro feliz" class="w-48 h-48 object-cover rounded-lg shadow-xl">
+                    
+                    <p class="geom-regular text-gray-200 py-6 pr-6 max-w-xl">Cuidado especializado y la más alta tecnología para tu mascota en un solo lugar, Saludable desde la nariz hasta la cola</p>
+                    
+                    <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20AIPets%2C%20Me%20contacto%20desde%20la%20p%C3%A1gina%20web.%20Quisiera%20agendar%20una%20consulta%20veterinaria" target="_blank" rel="noopener noreferrer"
+                        class="geom-bold cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center w-fit">
+                        Agendar una consulta
+                        <i class="text-cyan-500 font-bold fa-solid fa-paw ml-2"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -47,7 +25,7 @@
 </div>
 
 <!-- Sección de características -->
-<div class="container mx-auto px-4 py-12">
+<div class="container mx-auto px-4 py-24">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <!-- Envío a todo Callao -->
         <div class="flex items-start space-x-4">
@@ -57,12 +35,12 @@
                 </div>
             </div>
             <div>
-                <h3 class="font-bold text-gray-800 mb-1">Envío a todo Callao</h3>
-                <p class="text-sm text-gray-500">Free shipping on all your order</p>
+                <h3 class="geom-bold text-gray-800 mb-1">Envío a Todo Callao</h3>
+                <p class="geom-regular text-sm text-gray-500">Cobertura en La Perla, San Miguel y San José</p>
             </div>
         </div>
 
-        <!-- Lunes a Sábado -->
+        <!-- Atención Profesional -->
         <div class="flex items-start space-x-4">
             <div class="flex-shrink-0">
                 <div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center">
@@ -70,25 +48,25 @@
                 </div>
             </div>
             <div>
-                <h3 class="font-bold text-gray-800 mb-1">Lunes a Sábado</h3>
-                <p class="text-sm text-gray-500">Atención de 9 a 7 pm</p>
+                <h3 class="geom-bold text-gray-800 mb-1">Atención Profesional</h3>
+                <p class="geom-regular text-sm text-gray-500">Lunes a Sábado, 9 am a 7 pm</p>
             </div>
         </div>
 
-        <!-- 100% en seguridad de pagos -->
+        <!-- Pagos Seguros -->
         <div class="flex items-start space-x-4">
             <div class="flex-shrink-0">
                 <div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-shopping-bag text-cyan-500 text-xl"></i>
+                    <i class="fas fa-lock text-cyan-500 text-xl"></i>
                 </div>
             </div>
             <div>
-                <h3 class="font-bold text-gray-800 mb-1">100% en seguridad de pagos</h3>
-                <p class="text-sm text-gray-500">We ensure your money is save</p>
+                <h3 class="geom-bold text-gray-800 mb-1">100% Seguridad en Pagos</h3>
+                <p class="geom-regular text-sm text-gray-500">Transacciones protegidas y confiables</p>
             </div>
         </div>
 
-        <!-- Money-Back Guarantee -->
+        <!-- Productos de Calidad -->
         <div class="flex items-start space-x-4">
             <div class="flex-shrink-0">
                 <div class="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center">
@@ -96,114 +74,120 @@
                 </div>
             </div>
             <div>
-                <h3 class="font-bold text-gray-800 mb-1">Money-Back Guarantee</h3>
-                <p class="text-sm text-gray-500">30 Days Money-Back Guarantee</p>
+                <h3 class="geom-bold text-gray-800 mb-1">Productos de Calidad</h3>
+                <p class="geom-regular text-sm text-gray-500">Marcas certificadas y garantizadas</p>
             </div>
         </div>
     </div>
 </div>
 
 <section>
-    <div class="container mx-auto px-4 py-12">
+    <div class="container mx-auto px-4 pb-12">
         <!-- Título y Ver todo -->
-        <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Categorías principales</h2>
-            <a href="#" class="text-cyan-500 hover:text-cyan-600 font-semibold flex items-center">
-                Ver todo
-                <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+        <div class="text-center mb-8">
+            <h2 class="geom-bold text-2xl md:text-3xl font-bold text-cyan-500">Un recuento de nuestras categorías principales!</h2>
         </div>
 
         <!-- Grid de categorías -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             <!-- Perfumería -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?w=200&h=150&fit=crop"
                         alt="Perfumería" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Perfumería</h3>
+                <h3 class="font-semibold geom-regular">Perfumería <i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Medicamentos y Tratamientos -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border-2 border-cyan-400">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=200&h=150&fit=crop"
                         alt="Medicamentos" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-cyan-500">Medicamentos y<br>Tratamientos</h3>
+                <h3 class="font-semibold geom-regular">Medicamentos <i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Accesorios -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=200&h=150&fit=crop"
                         alt="Accesorios" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Accesorios</h3>
+                <h3 class="font-semibold geom-regular">Accesorios<i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Alimentos -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=150&fit=crop"
                         alt="Alimentos" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Alimentos</h3>
+                <h3 class="font-semibold geom-regular">Alimentos<i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Maletines y transportadores -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1591769225440-811ad7d6eab3?w=200&h=150&fit=crop"
                         alt="Maletines" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Maletines y<br>transportadores</h3>
+                <h3 class="font-semibold geom-regular">Transportadores<i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Antiparasitarios -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?w=200&h=150&fit=crop"
                         alt="Antiparasitarios" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Antiparasitarios</h3>
+                <h3 class="font-semibold geom-regular">Antiparasitarios<i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Higiene y Cuidado -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1600077106724-946750eeaf3c?w=200&h=150&fit=crop"
                         alt="Higiene" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Higiene y Cuidado</h3>
+                <h3 class="font-semibold geom-regular">Higiene y Cuidado<i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Descartables -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=200&h=150&fit=crop"
                         alt="Descartables" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Descartables</h3>
+                <h3 class="font-semibold geom-regular">Descartables<i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
 
             <!-- Vitaminas y Suplementos -->
-            <div
-                class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
                 <div class="mb-4 flex justify-center">
                     <img src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?w=200&h=150&fit=crop"
                         alt="Vitaminas" class="w-24 h-24 object-cover rounded-lg">
                 </div>
-                <h3 class="font-semibold text-gray-800">Vitaminas y<br>Suplementos</h3>
+                <h3 class="font-semibold geom-regular">Vitaminas<i class="fas fa-arrow-right ml-2"></i></h3>
+            </div>
+
+            <!-- Juguetes y Entretenimiento -->
+            <div (click)="navegar('shop-uno')"
+                class="hover:border-2 hover:text-cyan-500 hover:border-cyan-500 bg-white rounded-xl shadow-sm hover:shadow-lg transition p-6 text-center cursor-pointer border border-gray-100">
+                <div class="mb-4 flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=200&h=150&fit=crop"
+                        alt="Juguetes" class="w-24 h-24 object-cover rounded-lg">
+                </div>
+                <h3 class="font-semibold geom-regular">Juguetes<i class="fas fa-arrow-right ml-2"></i></h3>
             </div>
         </div>
     </div>
@@ -220,13 +204,13 @@
                     <div class="flex flex-col justify-between h-full p-8">
                         <div>
                             <span
-                                class="inline-block bg-gray-700 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full mb-4">
+                                class="geom-regular inline-block bg-gray-700 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full mb-4">
                                 LA PERLA
                             </span>
 
                             <div class="mt-12">
-                                <h3 class="text-white text-3xl font-bold mb-4">Sede La Perla</h3>
-                                <div class="items-center space-x-4 text-white">
+                                <h3 class="geom-bold text-white text-3xl font-bold mb-4">Sede La Perla</h3>
+                                <div class="geom-regular items-center space-x-4 text-white">
                                     <span class=""><i class="fa-solid fa-location-dot"></i> Av. José Galvez
                                         1284</span><br>
                                     <span><i class="fa-solid fa-phone"></i> 992 071 210</span>
@@ -239,14 +223,14 @@
 
                             <button
                                 (click)="abrirWhatsapp('51992071210')"
-                                class="bg-white hover:cursor-pointer text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
+                                class="geom-bold bg-white hover:cursor-pointer text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
                                 Whatsapp
                                 <i class="fas fa-arrow-right ml-2"></i>
                             </button>
 
                             <button
                                 (click)="abrirMapa('https://www.google.com/maps/place/Ai+Pets+La+Perla/@-12.0663428,-77.1266334,17z/data=!3m1!4b1!4m6!3m5!1s0x9105cb519025d651:0x25fb50563445074e!8m2!3d-12.0663428!4d-77.1240531!16s%2Fg%2F11whhgfq_s?entry=ttu')"
-                                class="bg-white hover:cursor-pointer text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
+                                class="geom-bold bg-white hover:cursor-pointer text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
                                 Ubicación
                                 <i class="fas fa-arrow-right ml-2"></i>
                             </button>
@@ -264,13 +248,13 @@
                     class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/70 transition">
                     <div class="flex flex-col justify-between h-full p-8">
                         <div>
-                            <div class="inline-block bg-orange-500 text-white text-xs font-bold px-4 py-2 rounded mb-4">
+                            <div class="geom-regular inline-block bg-orange-500 text-white text-xs font-bold px-4 py-2 rounded mb-4">
                                 SAN MIGUEL
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-white text-3xl font-bold mb-4">Sede San Miguel</h3>
-                            <div class="items-center space-x-4 text-white mb-4">
+                            <h3 class="geom-bold text-white text-3xl mb-4">Sede San Miguel</h3>
+                            <div class="geom-regular items-center space-x-4 text-white mb-4">
                                 <span><i class="fa-solid fa-location-dot"></i> Calle Pedro Chamochumbi 217
                                     Maranga</span><br>
                                 <span><i class="fa-solid fa-phone"></i> 994 054 680</span>
@@ -278,13 +262,13 @@
                             <div class="flex gap-2">
                                 <button
                                     (click)="abrirWhatsapp('51994054680')"
-                                    class="hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
+                                    class="geom-bold hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
                                     Whatsapp
                                     <i class="fas fa-arrow-right ml-2"></i>
                                 </button>
                                 <button
                                     (click)="abrirMapa('https://www.google.com/maps/place/Ai+Pets/@-12.0724896,-77.093967,17z/data=!4m6!3m5!1s0x9105c964520d2ea1:0xeca90db0a11c395c!8m2!3d-12.072481!4d-77.0940665!16s%2Fg%2F11gtys_vwb?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2OUgBUAM%3D')"
-                                    class="hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
+                                    class="geom-bold hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
                                     Ubicación
                                     <i class="fas fa-arrow-right ml-2"></i>
                                 </button>
@@ -300,13 +284,13 @@
                 <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition">
                     <div class="flex flex-col justify-between h-full p-8">
                         <div>
-                            <span class="inline-block bg-green-600 text-white text-xs font-bold px-4 py-2 rounded mb-4">
+                            <span class="geom-regular inline-block bg-green-600 text-white text-xs font-bold px-4 py-2 rounded mb-4">
                                 SAN JOSÉ
                             </span>
                         </div>
                         <div>
-                            <h3 class="text-white text-3xl font-bold mb-2">Sede San José</h3>
-                            <div class="items-center space-x-4 text-white mb-4">
+                            <h3 class="geom-bold text-white text-3xl font-bold mb-2">Sede San José</h3>
+                            <div class="geom-regular items-center space-x-4 text-white mb-4">
                                 <span><i class="fa-solid fa-location-dot"></i> Av. San Jose 396 Urb. San
                                     José-Bellavista</span><br>
                                 <span><i class="fa-solid fa-phone"></i> 908 878 260</span>
@@ -314,13 +298,13 @@
                             <div class="flex gap-2">
                                 <button
                                     (click)="abrirWhatsapp('51908878260')"
-                                    class="hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
+                                    class="geom-bold hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
                                     Whatsapp
                                     <i class="fas fa-arrow-right ml-2"></i>
                                 </button>
                                 <button
                                     (click)="abrirMapa('https://www.google.com/maps/place/Ai+Pets+San+Jose/@-12.0559303,-77.0983109,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c9abf67e3835:0xe129f217d8e4edc7!8m2!3d-12.0559303!4d-77.0957306!16s%2Fg%2F11wthm50jb?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2OUgBUAM%3D')"
-                                    class="hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
+                                    class="geom-bold hover:cursor-pointer bg-white text-cyan-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center justify-center w-fit">
                                     Ubicación
                                     <i class="fas fa-arrow-right ml-2"></i>
                                 </button>
@@ -338,12 +322,9 @@
     <!-- Sección de Productos principales -->
     <div class="container mx-auto px-4 py-12">
         <!-- Título y View All -->
-        <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Productos principales</h2>
-            <a href="#" class="text-cyan-500 hover:text-cyan-600 font-semibold flex items-center">
-                View All
-                <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+        <div class="text-center mb-8">
+            <h2 class="text-cyan-500 geom-bold text-2xl md:text-3xl font-bold">Los principales productos que necesita tu mascota <br>
+            los tenemos en AIPets!</h2>
         </div>
 
         <!-- Grid de productos -->
@@ -363,7 +344,7 @@
                     </button>
                 </div>
                 <div>
-                    <h3 class="text-sm text-gray-600 mb-1 line-clamp-2">POLERA DINO TALLA 2</h3>
+                    <h3 class="geom-regular text-sm text-gray-600 mb-1 line-clamp-2">POLERA DINO TALLA 2</h3>
                     <div class="flex items-center justify-between">
                         <span class="text-lg font-bold text-gray-800">S/25.00</span>
                         <div class="flex items-center space-x-2">
@@ -778,47 +759,48 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Columna izquierda: Texto -->
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Nuestras marcas</h2>
-                <p class="text-gray-600 leading-relaxed mb-8">
-                    Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna
-                    dictum, bibendum cursus velit sodales. Donec sed neque eget quam pellentesque eu nibh eget mauris
-                    congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit
-                    sodales. Donec sed neque eget.
+                <h2 class="geom-bold text-3xl md:text-4xl text-gray-800 mb-3">Nuestras <span class="text-cyan-500">marcas</span> confiables</h2>
+                <p class="geom-regular text-gray-600 leading-relaxed mb-8">
+                    En AIPets contamos con las mejores marcas del mercado veterinario. Trabajamos con proveedores certificados que garantizan la calidad y eficacia de cada producto. Confía en nosotros para el cuidado integral de tu mascota.
                 </p>
-                <button (click)="irANosotros()"
-                    class="bg-cyan-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-cyan-600 transition flex items-center">
-                    Más Información
+                <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20AIPets%2C%20Me%20contacto%20desde%20la%20p%C3%A1gina%20web.%20Quisiera%20solicitar%20un%20pedido" target="_blank" rel="noopener noreferrer"
+                    class="geom-bold hover:cursor-pointer bg-cyan-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-cyan-600 transition inline-flex items-center">
+                    Solicitar un Pedido
                     <i class="fas fa-arrow-right ml-3"></i>
-                </button>
+                </a>
             </div>
 
             <!-- Columna derecha: Imágenes de marcas -->
             <div class="grid grid-cols-2 gap-4">
                 <!-- Imagen superior izquierda - Ricocan pequeño -->
                 <div
-                    class="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105">
+                    class="hover:cursor-pointer relative rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105">
                     <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?w=400&h=400&fit=crop"
                         alt="Ricocan Marca" class="w-full h-64 object-cover">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-pink-500/80 to-transparent flex items-center justify-center">
                         <div class="text-white text-center p-4">
-                            <div class="text-2xl font-bold mb-2">Ricocan</div>
-                            <div class="text-sm">Cachorros</div>
+                            <div class="text-2xl font-bold mb-2">
+                                <h2 class="geom-bold">Ricocan</h2>
+                            </div>
+                            <div class="text-sm">
+                                <p class="geom-regular">Cachorros</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Imagen superior derecha - Ricocan grande -->
                 <div
-                    class="relative rounded-2xl overflow-hidden shadow-lg row-span-2 hover:shadow-xl transition transform hover:scale-105">
+                    class="hover:cursor-pointer relative rounded-2xl overflow-hidden shadow-lg row-span-2 hover:shadow-xl transition transform hover:scale-105">
                     <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=800&fit=crop"
                         alt="Ricocan Principal" class="w-full h-full object-cover">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-red-600/80 to-transparent flex items-end justify-center pb-8">
                         <div class="text-white text-center p-4">
-                            <div class="text-4xl font-bold mb-2">Ricocan</div>
-                            <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
-                                Cachorros
+                            <div class="geom-bold text-4xl font-bold mb-2">Ricocan</div>
+                            <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm geom-regular">
+                                Premium para Mascotas
                             </div>
                         </div>
                     </div>
@@ -826,14 +808,14 @@
 
                 <!-- Imagen inferior izquierda - Eukanuba -->
                 <div
-                    class="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105">
+                    class="hover:cursor-pointer relative rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105">
                     <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400&h=400&fit=crop"
                         alt="Eukanuba" class="w-full h-64 object-cover">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-center">
                         <div class="text-white text-center p-4">
-                            <div class="text-xl font-bold mb-2">eukanuba</div>
-                            <div class="text-xs">Máxima Energía!</div>
+                            <div class="geom-bold text-xl font-bold mb-2">Eukanuba</div>
+                            <div class="geom-regular text-xs">Nutrición Completa</div>
                         </div>
                     </div>
                 </div>
@@ -845,7 +827,7 @@
 <section>
     <!-- Sección Síguenos en Instagram -->
     <div class="container mx-auto px-4 py-16">
-        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-12">Síguenos en Instagram</h2>
+        <h2 class="geom-bold text-cyan-500 text-2xl md:text-3xl text-center mb-12">Síguenos en Instagram para nuestras <span class="text-gray-800">últimas novedades y ofertas</span></h2>
 
         <!-- Grid de posts de Instagram -->
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -855,8 +837,8 @@
                 <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=400&fit=crop"
                     alt="Instagram Post 1" class="w-full h-full object-cover">
                 <div
-                    class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                    <i class="fab fa-instagram text-white text-4xl opacity-0 group-hover:opacity-100 transition"></i>
+                    class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition flex items-center justify-center">
+                    <i class="fab fa-instagram text-white text-5xl"></i>
                 </div>
             </a>
 
@@ -866,8 +848,8 @@
                 <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=400&fit=crop"
                     alt="Instagram Post 2" class="w-full h-full object-cover">
                 <div
-                    class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                    <i class="fab fa-instagram text-white text-4xl opacity-0 group-hover:opacity-100 transition"></i>
+                    class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition flex items-center justify-center">
+                    <i class="fab fa-instagram text-white text-5xl"></i>
                 </div>
             </a>
 
@@ -877,8 +859,8 @@
                 <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop"
                     alt="Instagram Post 3" class="w-full h-full object-cover">
                 <div
-                    class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                    <i class="fab fa-instagram text-white text-4xl opacity-0 group-hover:opacity-100 transition"></i>
+                    class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition flex items-center justify-center">
+                    <i class="fab fa-instagram text-white text-5xl"></i>
                 </div>
             </a>
 
@@ -888,8 +870,8 @@
                 <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=400&fit=crop"
                     alt="Instagram Post 4" class="w-full h-full object-cover">
                 <div
-                    class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                    <i class="fab fa-instagram text-white text-4xl opacity-0 group-hover:opacity-100 transition"></i>
+                    class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition flex items-center justify-center">
+                    <i class="fab fa-instagram text-white text-5xl"></i>
                 </div>
             </a>
 
@@ -899,8 +881,8 @@
                 <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=400&fit=crop"
                     alt="Instagram Post 5" class="w-full h-full object-cover">
                 <div
-                    class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                    <i class="fab fa-instagram text-white text-4xl opacity-0 group-hover:opacity-100 transition"></i>
+                    class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition flex items-center justify-center">
+                    <i class="fab fa-instagram text-white text-5xl"></i>
                 </div>
             </a>
 
@@ -910,8 +892,8 @@
                 <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&h=400&fit=crop"
                     alt="Instagram Post 6" class="w-full h-full object-cover">
                 <div
-                    class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                    <i class="fab fa-instagram text-white text-4xl opacity-0 group-hover:opacity-100 transition"></i>
+                    class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition flex items-center justify-center">
+                    <i class="fab fa-instagram text-white text-5xl"></i>
                 </div>
             </a>
         </div>

@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar implements OnInit {
   currentSection = 'Inicio';
   currentIcon = 'fa-home';
+  searchQuery = '';
 
   constructor(private router: Router) {}
 
@@ -41,6 +43,15 @@ export class Navbar implements OnInit {
       'contacto': 'fa-envelope',
     };
     return icons[ruta] || 'fa-circle';
+  }
+
+  buscar(): void {
+    if (this.searchQuery.trim()) {
+      // Navegar a shop-uno con el parámetro de búsqueda
+      this.router.navigate(['/shop-uno'], { queryParams: { buscar: this.searchQuery } }).then(() => {
+        this.searchQuery = '';
+      });
+    }
   }
 
   navegar(ruta: string): void {

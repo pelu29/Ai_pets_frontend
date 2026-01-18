@@ -1,2 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+.geom-regular {
+  font-family: "Geom", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.geom-bold {
+  font-family: "Geom", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.geom-ultraBold {
+  font-family: "Geom", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}

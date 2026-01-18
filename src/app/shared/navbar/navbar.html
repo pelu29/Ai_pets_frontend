@@ -9,84 +9,84 @@
 
       <!-- Mobile controls: search, cart, hamburger -->
       <div class="flex items-center md:hidden ml-auto space-x-2">
-        <details class="md:hidden relative">
-          <summary class="text-gray-700 p-2 rounded-md cursor-pointer"><i class="fas fa-search"></i></summary>
-          <div class="absolute left-0 right-0 mt-2 bg-white p-3 rounded-md shadow-lg z-50">
-            <div class="relative">
-              <input type="text" placeholder="Buscar" class="w-full px-4 py-2 pr-28 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-400">
-              <button class="absolute right-0 top-0 bottom-0 bg-cyan-400 text-white px-4 rounded-r-lg hover:bg-cyan-500 transition">Buscar</button>
-            </div>
-          </div>
-        </details>
 
-        <button class="text-gray-700 p-2 rounded-md relative">
-          <i class="fas fa-shopping-cart text-xl"></i>
-          <span class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">4</span>
-        </button>
+        <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20AIPets%2C%20Me%20contacto%20desde%20la%20p%C3%A1gina%20web.%20Quisiera%20consultar%20sobre%20sus%20servicios%20veterinarios" target="_blank" rel="noopener noreferrer" class="geom-bold px-5 hover:cursor-pointer border py-4 rounded-[30px] bg-cyan-500 text-white hover:bg-cyan-600 transition flex items-center">Whatsapp
+          <i class="text-white fa-solid fa-paw ml-2"></i></a>
 
         <!-- Label que controla el checkbox del menu (ver reemplazo de nav) -->
         <label for="nav-toggle" class="p-2 rounded-md bg-gray-100 text-gray-700 cursor-pointer">
           <i class="fas fa-bars"></i>
         </label>
+
       </div>
 
       <!-- Search (desktop) -->
       <div class="hidden md:flex flex-1 max-w-xl mx-8">
         <div class="relative w-full">
-          <input type="text" placeholder="Buscar" class="w-full px-4 py-2 pr-32 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-400">
-          <button class="absolute right-0 top-0 bottom-0 bg-cyan-400 text-white px-6 rounded-r-lg hover:bg-cyan-500 transition">Buscar</button>
+          <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchQuery" (keyup.enter)="buscar()"
+            class="w-full px-4 py-2 pr-32 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-400">
+          <button (click)="buscar()"
+            class="absolute right-0 top-0 bottom-0 bg-cyan-400 text-white px-6 rounded-r-lg hover:bg-cyan-500 transition">Buscar</button>
         </div>
       </div>
 
       <!-- Iconos derecha (desktop) -->
       <div class="hidden md:flex items-center space-x-6 ml-auto">
-        <button class="text-gray-700 hover:text-pink-500 transition">
-          <i class="far fa-heart text-xl"></i>
-        </button>
-
-        <button class="relative text-gray-700 hover:text-pink-500 transition">
-          <i class="fas fa-shopping-cart text-xl"></i>
-          <span class="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">4</span>
-        </button>
-
-        <div class="text-right hidden md:block">
-          <div class="text-xs text-gray-500">Shopping cart:</div>
-          <div class="text-sm font-bold text-gray-800">$57.00</div>
-        </div>
+        <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20AIPets%2C%20Me%20contacto%20desde%20la%20p%C3%A1gina%20web.%20Quisiera%20consultar%20sobre%20sus%20servicios%20veterinarios" target="_blank" rel="noopener noreferrer" class="geom-bold px-5 hover:cursor-pointer border py-4 rounded-[30px] bg-cyan-500 text-white hover:bg-cyan-600 transition flex items-center">Whatsapp
+          <i class="text-white fa-solid fa-paw ml-2"></i></a>
       </div>
     </div>
   </div>
 </header>
 
-<!-- Barra de navegación negra -->
-<nav class="p-4 bg-black text-white">
-  <div class="container mx-auto px-4">
-    <div class="flex items-center justify-between h-12">
+<!-- Barra de navegación con gradiente cyan -->
+<nav class="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white shadow-lg relative overflow-hidden">
+  <div class="absolute inset-0 opacity-5">
+    <svg class="w-full h-full" viewBox="0 0 400 80" fill="none">
+      <circle cx="30" cy="30" r="15" fill="currentColor" />
+      <circle cx="370" cy="50" r="20" fill="currentColor" />
+      <path d="M100 40 Q150 20 200 40 T300 40" stroke="currentColor" stroke-width="8" fill="none" />
+    </svg>
+  </div>
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="flex items-center justify-between h-16">
       <!-- Menú (desktop) -->
-      <div class="hidden md:flex items-center space-x-6">
-        <a (click)="navegar('inicio')" class="hover:cursor-pointer hover:text-cyan-400 transition flex items-center">Inicio <i class="fas fa-chevron-down ml-1 text-xs"></i></a>
-        <a (click)="navegar('shop-uno')" class="hover:text-cyan-400 hover:cursor-pointer transition flex items-center">Tienda <i class="fas fa-chevron-down ml-1 text-xs"></i></a>
-        <a (click)="navegar('nosotros')" class="hover:text-cyan-400 transition hover:cursor-pointer">Nosotros</a>
-        <a (click)="navegar('contacto')" class="hover:text-cyan-400 transition hover:cursor-pointer">Contáctanos</a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a (click)="navegar('inicio')"
+          class="geom-bold hover:cursor-pointer hover:text-white hover:scale-105 transition flex items-center text-sm font-semibold">Inicio <i
+            class="fas fa-chevron-down ml-2 text-xs"></i></a>
+        <a (click)="navegar('shop-uno')"
+          class="geom-bold hover:text-white hover:scale-105 hover:cursor-pointer transition flex items-center text-sm font-semibold">Tienda <i
+            class="fas fa-chevron-down ml-2 text-xs"></i></a>
+        <a (click)="navegar('nosotros')"
+          class="geom-bold hover:text-white transition hover:cursor-pointer hover:scale-105 text-sm font-semibold">Nosotros</a>
+        <a (click)="navegar('contacto')"
+          class="geom-bold hover:text-white transition hover:cursor-pointer hover:scale-105 text-sm font-semibold">Contáctanos</a>
       </div>
 
       <!-- Mostrar sección actual en móvil (pill con icono) -->
-      <div class="md:hidden ml-3">
-        <div role="status" aria-live="polite" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-white font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 shadow-md transition-colors duration-200 ease-in-out">
-          <i class="fas" [ngClass]="currentIcon"></i>
+      <div class="md:hidden">
+        <div role="status" aria-live="polite"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white font-semibold backdrop-blur-sm transition-colors duration-200 ease-in-out">
+          <i class="fas text-lg" [ngClass]="currentIcon"></i>
           <span class="text-sm">{{ currentSection }}</span>
         </div>
       </div>
+
+      <!-- Label del menú móvil -->
+      <label for="nav-toggle" class="md:hidden p-2 rounded-md hover:bg-white/20 text-white cursor-pointer transition">
+        <i class="fas fa-bars text-lg"></i>
+      </label>
     </div>
 
     <input id="nav-toggle" type="checkbox" class="hidden peer" aria-hidden="true">
 
     <!-- Mobile menu (aparece cuando #nav-toggle está checked) -->
-    <div class="peer-checked:block md:hidden hidden bg-black/95 mt-2 rounded-b-lg p-4 space-y-2">
-      <a (click)="navegar('inicio')" class="block hover:text-cyan-400">Inicio</a>
-      <a (click)="navegar('shop-uno')" class="block hover:text-cyan-400">Tienda</a>
-      <a (click)="navegar('nosotros')" class="block hover:text-cyan-400">Nosotros</a>
-      <a (click)="navegar('contacto')" class="block hover:text-cyan-400">Contáctanos</a>
+    <div class="peer-checked:block md:hidden hidden pb-4 space-y-2 bg-gradient-to-b from-cyan-500/50 to-transparent rounded-b-lg">
+      <a (click)="navegar('inicio')" class="geom-regular block px-4 py-3 hover:bg-white/10 rounded-lg transition hover:text-white">Inicio</a>
+      <a (click)="navegar('shop-uno')" class="geom-regular block px-4 py-3 hover:bg-white/10 rounded-lg transition hover:text-white">Tienda</a>
+      <a (click)="navegar('nosotros')" class="geom-regular block px-4 py-3 hover:bg-white/10 rounded-lg transition hover:text-white">Nosotros</a>
+      <a (click)="navegar('contacto')" class="geom-regular block px-4 py-3 hover:bg-white/10 rounded-lg transition hover:text-white">Contáctanos</a>
     </div>
   </div>
 </nav>

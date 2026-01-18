@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Products } from '../../services/products/products';
 
 interface Category {
@@ -45,6 +46,7 @@ export class ShopUno implements OnInit {
   categories: Category[] = [];
   popularTags: Tag[] = [];
   showOnlyAvailable = false;
+  searchTerm = '';
 
   products: Product[] = [];
 
@@ -59,9 +61,15 @@ export class ShopUno implements OnInit {
     { name: 'San José', phone: '51908878260', address: 'Av. San Jose 396' }
   ];
 
-  constructor(private productsService: Products) { }
+  constructor(private productsService: Products, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // Obtener el parámetro de búsqueda de la URL
+    this.route.queryParams.subscribe(params => {
+      if (params['buscar']) {
+        this.searchTerm = params['buscar'];
+      }
+    });
     this.loadProducts();
   }
 
@@ -136,6 +144,16 @@ export class ShopUno implements OnInit {
 
   get filteredProducts(): Product[] {
     let results = this.products.filter(p => p.price >= this.minPrice && p.price <= this.maxPrice);
+
+    // Filtrado por búsqueda
+    if (this.searchTerm.trim()) {
+      const searchLower = this.searchTerm.toLowerCase();
+      results = results.filter(p => 
+        p.name.toLowerCase().includes(searchLower) ||
+        (p.category && p.category.toLowerCase().includes(searchLower)) ||
+        (p.tags && p.tags.some(tag => tag.toLowerCase().includes(searchLower)))
+      );
+    }
 
     const activeCategories = this.categories.filter(c => c.checked).map(c => c.name);
     if (activeCategories.length) {
