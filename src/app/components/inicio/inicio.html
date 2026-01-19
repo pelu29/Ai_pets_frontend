@@ -352,11 +352,11 @@
                                 class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-white transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20POLERA%20DINO%20TALLA%202"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('POLERA DINO TALLA 2', 25.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -394,11 +394,11 @@
                                 class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-white transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20PLATO%20LABERINTO%20DOBLE"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('PLATO LABERINTO DOBLE', 40.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -437,11 +437,11 @@
                                 class="w-8 h-8 bg-cyan-500 text-white rounded-full flex items-center justify-center hover:bg-cyan-600 transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20FLORATEX%208%208ml.%20SUSPENSION"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('FLORATEX 8 8ml. SUSPENSION', 92.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -479,11 +479,11 @@
                                 class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-white transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20VIRBAC%20KIDNEY%20DOS%20SUPPORT%203n1"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('VIRBAC KIDNEY DOS SUPPORT 3n1', 155.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -521,11 +521,11 @@
                                 class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-white transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20EPOTIC%20SPH%C3%89RULITES"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('EPOTIC SPHÉRULITES', 76.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -563,11 +563,11 @@
                                 class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-white transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20PLACA%20DE%20IDENTIFICACI%C3%93N%20ALUMINIO%20-%20GATOS"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('PLACA DE IDENTIFICACIÓN ALUMINIO - GATOS', 27.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -899,3 +899,43 @@
         </div>
     </div>
 </section>
+
+<!-- Modal de selección de sedes -->
+<div *ngIf="showSedeModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Selecciona una sede</h2>
+    <p class="text-gray-600 mb-6">Elige la sede desde donde deseas realizar tu compra</p>
+
+    <div class="space-y-3 mb-6">
+      <div *ngFor="let sede of sedes" 
+        class="border-2 rounded-lg p-4 cursor-pointer transition"
+        [class.border-cyan-500]="selectedSede === sede"
+        [class.bg-cyan-50]="selectedSede === sede"
+        [class.border-gray-300]="selectedSede !== sede"
+        (click)="selectedSede = sede">
+        <div class="flex items-start space-x-3">
+          <input type="radio" [checked]="selectedSede === sede" class="mt-1" />
+          <div>
+            <h3 class="font-semibold text-gray-800">{{ sede.name }}</h3>
+            <p class="text-sm text-gray-600">{{ sede.address }}</p>
+            <p class="text-sm text-gray-500">{{ sede.phone }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <button 
+        (click)="closeModal()"
+        class="flex-1 bg-gray-300 text-gray-800 px-4 py-2 rounded-md font-semibold hover:bg-gray-400 transition">
+        Cancelar
+      </button>
+      <button 
+        (click)="confirmSede()"
+        [disabled]="!selectedSede"
+        class="flex-1 bg-cyan-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-cyan-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
+        Continuar a WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
