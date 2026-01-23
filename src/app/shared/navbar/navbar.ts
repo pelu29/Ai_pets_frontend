@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { SEDES } from '../sedes.data';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +15,10 @@ export class Navbar implements OnInit {
   currentSection = 'Inicio';
   currentIcon = 'fa-home';
   searchQuery = '';
+  // estado para el menú emergente de sedes
+  showSedeMenu = false;
+  sedes: { name: string; phone: string; address?: string }[] = [];
+  selectedPhone = '';
 
   constructor(private router: Router) {}
 
@@ -23,6 +28,32 @@ export class Navbar implements OnInit {
     const route = url.split('/')[0] || 'inicio';
     this.currentSection = this.labelForRoute(route);
     this.currentIcon = this.iconForRoute(route);
+    // cargar sedes compartidas
+    try {
+      this.sedes = SEDES as any;
+    } catch (e) {
+      // silenciar si falla
+    }
+    if (this.sedes && this.sedes.length) {
+      this.selectedPhone = this.sedes[0].phone;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(_: Event): void {
+    this.showSedeMenu = false;
+  }
+
+  toggleSedeMenu(event?: Event): void {
+    if (event) { event.stopPropagation(); }
+    this.showSedeMenu = !this.showSedeMenu;
+  }
+
+  openWhatsappFor(phone: string): void {
+    const text = 'Hola AIPets, Me contacto desde la página web. Quisiera consultar sobre sus servicios veterinarios';
+    const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+    this.showSedeMenu = false;
   }
 
   private labelForRoute(ruta: string): string {

@@ -605,11 +605,11 @@
                                 class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-white transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20TRANSPORTADOR%20KENNEL%20CHICO"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('TRANSPORTADOR KENNEL CHICO', 80.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -647,11 +647,11 @@
                                 class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-cyan-500 hover:text-white transition">
                                 <i class="fas fa-shopping-bag text-sm"></i>
                             </button>
-                            <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20quiero%20comprar%20COMITO%20SHAMPOO%20AVENA%20260ml"
-                                target="_blank" rel="noopener noreferrer"
+                            <button
+                                (click)="openWhatsapp('COMITO SHAMPOO AVENA 260ml', 30.00)"
                                 class="bg-cyan-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-cyan-600 transition">
                                 Comprar
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-center mt-2">
@@ -763,11 +763,11 @@
                 <p class="geom-regular text-gray-600 leading-relaxed mb-8">
                     En AIPets contamos con las mejores marcas del mercado veterinario. Trabajamos con proveedores certificados que garantizan la calidad y eficacia de cada producto. Confía en nosotros para el cuidado integral de tu mascota.
                 </p>
-                <a href="https://api.whatsapp.com/send?phone=51992071210&text=Hola%20AIPets%2C%20Me%20contacto%20desde%20la%20p%C3%A1gina%20web.%20Quisiera%20solicitar%20un%20pedido" target="_blank" rel="noopener noreferrer"
+                <button (click)="openPedido()" type="button"
                     class="geom-bold hover:cursor-pointer bg-cyan-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-cyan-600 transition inline-flex items-center">
                     Solicitar un Pedido
                     <i class="fas fa-arrow-right ml-3"></i>
-                </a>
+                </button>
             </div>
 
             <!-- Columna derecha: Imágenes de marcas -->
