@@ -18,6 +18,7 @@ export class Inicio implements OnInit {
   showSedeModal = false;
   selectedProduct: Product | null = null;
   selectedSede: Sede | null = null;
+  isAppointment: boolean = false;
 
   sedes: Sede[] = SEDES;
 
@@ -72,6 +73,7 @@ export class Inicio implements OnInit {
   // Abrir modal para solicitar un pedido general (sin producto)
   openPedido(): void {
     this.selectedProduct = null;
+    this.isAppointment = true;
     // asegurar que haya una sede seleccionada por defecto
     if (!this.selectedSede && this.sedes && this.sedes.length) {
       this.selectedSede = this.sedes[0];
@@ -83,18 +85,22 @@ export class Inicio implements OnInit {
     this.showSedeModal = false;
     this.selectedProduct = null;
     this.selectedSede = null;
+    this.isAppointment = false;
   }
 
   confirmSede() {
     if (this.selectedSede) {
       let message = '';
-      if (this.selectedProduct) {
+      if (this.isAppointment) {
+        message = `Hola AIPets, quisiera agendar una consulta en la sede: ${this.selectedSede.name}`;
+      } else if (this.selectedProduct) {
         message = `Hola que tal, quiero comprar: ${this.selectedProduct.name} - S/ ${this.selectedProduct.price?.toFixed(2) ?? ''} - Sede: ${this.selectedSede.name}`;
       } else {
         message = `Hola AIPets, deseo solicitar un pedido. Sede: ${this.selectedSede.name}`;
       }
       const url = `https://wa.me/${this.selectedSede.phone}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank', 'noopener,noreferrer');
+      this.isAppointment = false;
       this.closeModal();
     }
   }
