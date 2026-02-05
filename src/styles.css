@@ -21,3 +21,11 @@
   font-weight: 900;
   font-style: normal;
 }
+
+/* alias with lowercase name used across components */
+.geom-ultrabold {
+  font-family: "Geom", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
