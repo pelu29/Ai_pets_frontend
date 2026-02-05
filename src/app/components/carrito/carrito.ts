@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemCarrito } from '../../models/item-carrito.model';
 import { Producto } from '../../models/producto.model';
+import { CartService } from '../../services/cart/cart';
+import { Router } from '@angular/router';
+import { Sede, SEDES } from '../../shared/sedes.data';
 
 @Component({
   selector: 'app-carrito',
@@ -11,72 +14,61 @@ import { Producto } from '../../models/producto.model';
 })
 
 export class Carrito {
-  items: ItemCarrito[] = [
-    // Ejemplo de datos, en un app real vendrían de un servicio
-    {
-      producto: {
-        id: 1,
-        nombre: 'Croquetas Premium Adulto 15kg',
-        precio: 180,
-        imagen: '/img/croquetas-adulto.jpg',
-        stock: 25,
-        disponible: true,
-        categoria: 'Alimentos',
-        descripcion: 'Alimento balanceado para perros adultos'
-      },
-      cantidad: 2,
-      subtotal: 360
-    },
-    {
-      producto: {
-        id: 3,
-        nombre: 'Hueso de Juguete Resistente',
-        precio: 25,
-        imagen: '/img/hueso-juguete.jpg',
-        stock: 40,
-        disponible: true,
-        categoria: 'Juguetes',
-        descripcion: 'Juguete de goma resistente para masticar'
-      },
-      cantidad: 1,
-      subtotal: 25
-    }
-  ];
+  items: ItemCarrito[] = [];
+  sedes: Sede[] = SEDES;
+  showSedeModal = false;
+  selectedSede: Sede | null = null;
+
+  constructor(private cart: CartService, private router: Router) {
+    this.items = this.cart.getItems();
+  }
 
   get total(): number {
-    return this.items.reduce((sum, item) => sum + item.subtotal, 0);
+    return this.cart.getTotal();
   }
 
   aumentarCantidad(item: ItemCarrito): void {
-    if (item.cantidad < item.producto.stock) {
-      item.cantidad++;
-      item.subtotal = item.cantidad * item.producto.precio;
-    }
+    this.cart.increase(item);
+    this.items = this.cart.getItems();
   }
 
   disminuirCantidad(item: ItemCarrito): void {
-    if (item.cantidad > 1) {
-      item.cantidad--;
-      item.subtotal = item.cantidad * item.producto.precio;
-    }
+    this.cart.decrease(item);
+    this.items = this.cart.getItems();
   }
 
   eliminarItem(index: number): void {
-    this.items.splice(index, 1);
+    this.cart.remove(index);
+    this.items = this.cart.getItems();
   }
 
   continuarComprando(): void {
-    // Lógica para navegar a la página de productos
-    console.log('Continuar comprando');
+    this.router.navigate(['/shop-uno']);
   }
 
   updateCart(): void {
-    // Lógica para actualizar el carrito
-    console.log('Update cart');
+    // el servicio ya persiste los cambios
   }
 
-  procederPago(): void {
-    // Lógica para proceder al pago
-    console.log('Proceder al pago');
+  vaciarCarrito(): void {
+    if (!confirm('¿Vaciar el carrito?')) return;
+    this.cart.clear();
+    this.items = this.cart.getItems();
+  }
+
+  hacerPedido(): void {
+    if (!this.items || this.items.length === 0) return alert('El carrito está vacío');
+    this.selectedSede = this.sedes[0] || null;
+    this.showSedeModal = true;
+  }
+
+  confirmPedido() {
+    if (!this.selectedSede) return;
+    const lines = this.items.map(i => `- ${i.producto.nombre} x${i.cantidad} S/ ${i.producto.precio.toFixed(2)}`);
+    const subtotal = this.total.toFixed(2);
+    const message = `Hola AIPets, deseo separar estos productos:\n${lines.join('\n')}\nTotal: S/ ${subtotal}\nQuiero separar estos productos y vengo de la página web.`;
+    const url = `https://wa.me/${this.selectedSede.phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+    this.showSedeModal = false;
   }
 }

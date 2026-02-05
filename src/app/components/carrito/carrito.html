@@ -50,23 +50,13 @@
           </div>
 
           <!-- Coupon Section -->
-          <div class="px-6 py-4 border-t border-gray-200">
-            <label for="coupon" class="block text-sm font-medium text-gray-700 mb-2">Coupon Code</label>
-            <div class="flex">
-              <input type="text" id="coupon" placeholder="Enter coupon code" class="flex-1 px-3 py-2 border border-gray-300 rounded-l-full focus:outline-none focus:ring-1 focus:ring-gray-500">
-              <button class="px-4 py-2 bg-gray-900 text-white rounded-r-full hover:bg-gray-800 transition-colors">
-                Apply
-              </button>
-            </div>
-          </div>
-
           <div class="px-6 py-4 bg-white border-t border-gray-200">
             <div class="flex justify-between">
               <button (click)="continuarComprando()" class="px-6 py-2 border border-gray-300 rounded-full text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors">
-                Return to Shop
+                Seguir comprando
               </button>
-              <button (click)="updateCart()" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-full hover:bg-gray-400 transition-colors">
-                Update Cart
+              <button (click)="vaciarCarrito()" class="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors">
+                Vaciar carrito
               </button>
             </div>
           </div>
@@ -76,26 +66,66 @@
       <!-- Cart Total -->
       <div class="lg:col-span-1">
         <div class="bg-white shadow-sm rounded-lg p-6">
-          <h2 class="text-xl font-semibold text-gray-900 mb-6">Cart Total</h2>
+          <h2 class="text-xl font-semibold text-gray-900 mb-6">Resumen del pedido</h2>
 
           <div class="space-y-4">
             <div class="flex justify-between">
               <span class="text-gray-600">Subtotal</span>
-              <span class="text-gray-900 font-medium">${{ total }}</span>
+              <span class="text-gray-900 font-medium">S/ {{ total.toFixed(2) }}</span>
             </div>
 
             <div class="border-t border-gray-200 pt-4">
               <div class="flex justify-between text-lg font-semibold">
                 <span>Total</span>
-                <span class="text-gray-900">${{ total }}</span>
+                <span class="text-gray-900">S/ {{ total.toFixed(2) }}</span>
               </div>
             </div>
 
-            <button (click)="procederPago()" class="w-full bg-cyan-500 text-white py-3 rounded-full hover:bg-cyan-600 transition-colors">
-              Proceed to Checkout
+            <button (click)="hacerPedido()" class="w-full bg-cyan-500 text-white py-3 rounded-full hover:bg-cyan-600 transition-colors">
+              Hacer pedido
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para seleccionar sede al hacer pedido -->
+  <div *ngIf="showSedeModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Selecciona una sede</h2>
+      <p class="text-gray-600 mb-6">Elige la sede desde donde deseas reservar tu pedido</p>
+
+      <div class="space-y-3 mb-6">
+        <div *ngFor="let sede of sedes" 
+          class="border-2 rounded-lg p-4 cursor-pointer transition"
+          [class.border-cyan-500]="selectedSede === sede"
+          [class.bg-cyan-50]="selectedSede === sede"
+          [class.border-gray-300]="selectedSede !== sede"
+          (click)="selectedSede = sede">
+          <div class="flex items-start space-x-3">
+            <input type="radio" [checked]="selectedSede === sede" class="mt-1" />
+            <div>
+              <h3 class="font-semibold text-gray-800">{{ sede.name }}</h3>
+              <p class="text-sm text-gray-600">{{ sede.address }}</p>
+              <p class="text-sm text-gray-500">{{ sede.phone }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button 
+          (click)="showSedeModal = false"
+          class="flex-1 bg-gray-300 text-gray-800 px-4 py-2 rounded-md font-semibold hover:bg-gray-400 transition">
+          Cancelar
+        </button>
+        <button 
+          (click)="confirmPedido()"
+          [disabled]="!selectedSede"
+          class="flex-1 bg-cyan-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-cyan-600 transition disabled:opacity-50 disabled:cursor-not-allowed">
+          Continuar a WhatsApp
+        </button>
       </div>
     </div>
   </div>

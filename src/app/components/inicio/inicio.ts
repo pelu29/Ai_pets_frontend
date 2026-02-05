@@ -60,8 +60,12 @@ export class Inicio implements OnInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  navegar(ruta:string): void{
-    this.router.navigate([`/${ruta}`])
+  navegar(ruta:string, categoria?: string): void{
+    if (categoria) {
+      this.router.navigate([`/${ruta}`], { queryParams: { categoria } });
+    } else {
+      this.router.navigate([`/${ruta}`]);
+    }
   }
 
   openWhatsapp(productName: string, productPrice: number) {

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Products } from '../../services/products/products';
+import { CartService } from '../../services/cart/cart';
+import { ItemCarrito } from '../../models/item-carrito.model';
 
 interface Category {
   name: string;
@@ -61,7 +63,10 @@ export class ShopUno implements OnInit {
     { name: 'San José', phone: '51908878260', address: 'Av. San Jose 396' }
   ];
 
-  constructor(private productsService: Products, private route: ActivatedRoute) { }
+  // categoría inicial desde parámetros
+  initialCategory: string | null = null;
+
+  constructor(private productsService: Products, private route: ActivatedRoute, private cartService: CartService) { }
 
   ngOnInit(): void {
     // Obtener el parámetro de búsqueda de la URL
@@ -69,8 +74,12 @@ export class ShopUno implements OnInit {
       if (params['buscar']) {
         this.searchTerm = params['buscar'];
       }
+      if (params['categoria']) {
+        this.initialCategory = params['categoria'];
+      }
     });
     this.loadProducts();
+    this.refreshCart();
   }
 
   loadProducts() {
@@ -96,6 +105,17 @@ export class ShopUno implements OnInit {
         console.log('Productos procesados:', this.products);
         console.log('Imágenes:', this.products.map(p => ({ name: p.name, image: p.image })));
         this.initFilters();
+        // aplicar categoría inicial si existe (coincidencia flexible)
+        if (this.initialCategory) {
+          const want = String(this.initialCategory).toLowerCase().trim();
+          this.categories.forEach(c => {
+            const name = String(c.name).toLowerCase().trim();
+            if (name === want || name.includes(want) || want.includes(name)) {
+              c.checked = true;
+            }
+          });
+          this.initialCategory = null;
+        }
       },
       error: (err) => {
         console.error('Error al cargar productos:', err);
@@ -209,6 +229,61 @@ export class ShopUno implements OnInit {
       window.open(url, '_blank', 'noopener,noreferrer');
       this.closeModal();
     }
+  }
+
+  addToCart(product: Product) {
+    try {
+      this.cartService.add(product, 1);
+      // actualizar preview del carrito: hacerlo visible y expandido
+      this.refreshCart();
+      this.previewVisible = true;
+      this.previewExpanded = true;
+    } catch (e) {
+      console.error('Error agregando al carrito', e);
+    }
+  }
+  // preview del carrito en la página
+  cartItems: ItemCarrito[] = [];
+  cartTotal = 0;
+  // control de preview: visible = muestra la UI (minimizada o expandida), expanded = muestra lista completa
+  previewVisible = false;
+  previewExpanded = false;
+
+  refreshCart() {
+    this.cartItems = this.cartService.getItems();
+    this.cartTotal = this.cartService.getTotal();
+  }
+
+  // Alterna expandido/minimizado; si no visible, lo hace visible+expandido
+  toggleCartPreview() {
+    if (!this.previewVisible) {
+      this.previewVisible = true;
+      this.previewExpanded = true;
+      this.refreshCart();
+      return;
+    }
+    this.previewExpanded = !this.previewExpanded;
+    if (this.previewExpanded) this.refreshCart();
+  }
+
+  minimizePreview() {
+    this.previewVisible = true;
+    this.previewExpanded = false;
+  }
+
+  expandPreview() {
+    this.previewVisible = true;
+    this.previewExpanded = true;
+    this.refreshCart();
+  }
+
+  closePreview() {
+    this.previewVisible = false;
+    this.previewExpanded = false;
+  }
+
+  goToCart() {
+    window.location.href = '/carrito';
   }
 
 }
